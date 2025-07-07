@@ -1,44 +1,16 @@
 package modelos;
-import java.util.UUID;
+
 import java.util.Date;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
-
-@Entity
-@Table(name = "evento")
-public class Evento {
-    @Id
-    @Column(columnDefinition = "UUID")
-    private UUID idEnvento = UUID.randomUUID();
-
-    @Column(length = 50, nullable = false)
+public abstract class Evento {
     private String nombre;
-
-    @Column(length = 50, nullable = false)
     private Date fechaInicio;
-
-    @Column(length = 100, nullable = false)
-    private int duracion;
-
-    @Column(length = 20, nullable = false)
+    private int duracion; 
     private EstadoEvento estado;
-
-    @Column(nullable = false)
-    private boolean requiereInscripcion = false;
-
-    @Column(nullable = false)
-    private boolean tieneCupo = false;
-
-    @Column(nullable = false)
+    private boolean requiereInscripcion;
+    private boolean tieneCupo;
     private int cupoMaximo;
 
-
-    protected Evento() {
-
-    }
     public Evento(String nombre, Date fechaInicio, int duracion, EstadoEvento estado, boolean requiereInscripcion, boolean tieneCupo, int cupoMaximo) {
         if(nombre == null || nombre.isEmpty()) {
             throw new IllegalArgumentException("El nombre del evento no puede ser nulo o vacío.");
