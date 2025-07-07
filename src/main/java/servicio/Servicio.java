@@ -44,4 +44,25 @@ public class Servicio {
         }
     }
 
+    public void modificarPersona (String dni, String nombre, String apellido, String correo, String telefono) {
+        try{
+            this.persistencia.iniciarTransaccion();
+            var persona = this.persistencia.buscar(Persona.class, dni);
+            if(persona!=null){
+                persona.setNombre(nombre);
+                persona.setApellido(apellido);
+                persona.setCorreo(correo);
+                persona.setTelefono(telefono);
+                this.persistencia.modificar(persona);
+                this.persistencia.confirmarTransaccion();
+            } else {
+                this.persistencia.descartarTransaccion();
+            }
+        } catch (Exception e) {
+            this.persistencia.descartarTransaccion();
+            throw e;
+        }
+
+    }
+
 }
