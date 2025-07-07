@@ -1,7 +1,7 @@
 package Modelos;
 
 public enum EstadoEvento {
-    PLANIFICADO,
+    PLANIFICACION,
     CONFIRMADO,
     EN_EJECUCION,
     FINALIZADO
