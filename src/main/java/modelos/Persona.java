@@ -25,6 +25,9 @@ public class Persona {
     @Column(length = 20, nullable = false)
     private String telefono;
 
+    @Column(nullable = false)
+    private boolean baja = false;
+
     protected Persona() {
     }
 
@@ -104,6 +107,14 @@ public class Persona {
             throw new IllegalArgumentException("El teléfono no puede tener más de 20 caracteres.");
         }
         this.telefono = telefono.trim();
+    }
+
+    public boolean isBaja() {
+        return baja;
+    }
+
+    public void setBaja() {
+        this.baja = true;
     }
 
     @Override
