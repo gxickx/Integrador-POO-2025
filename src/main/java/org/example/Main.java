@@ -1,12 +1,18 @@
 package org.example;
 
+import java.io.IOException;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import persistencia.Persistencia;
+import servicio.Servicio;
 import modelos.Persona;
 
-public class Main {
-    public static void main(String[] args) {
+public class Main extends Application{
+/*   public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("integradorPOO2025");
         Persistencia persistencia = new Persistencia(emf);
 
@@ -20,5 +26,40 @@ public class Main {
             persistencia.descartarTransaccion();
             e.printStackTrace();
         }
+    }*/
+
+
+    private static Scene scene;
+    private static Servicio servicio;
+
+    @Override
+    public void start(Stage stage) throws IOException {
+        // creación del manejador de la conexión
+        var emf = Persistence.createEntityManagerFactory("integradorPOO2025");
+        // crea el servicio y repositorio
+        servicio = new Servicio(new Persistencia(emf));
+
+        // carga la escena principal
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/GestionPersonas.fxml"));
+        scene = new Scene(fxmlLoader.load(), 640, 480);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static Servicio getServicio() {
+        return servicio;
+    }
+
+    // carga un archivo FXML
+    // retorna el FXMLLoader para poder acceder a los controladores
+    // ver por ejemplo: void editar(ActionEvent event) en PedidosController.java
+    public static FXMLLoader setRoot(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxml + ".fxml"));
+        scene.setRoot(fxmlLoader.load());
+        return fxmlLoader;
+    }
+
+    public static void main(String[] args) {
+        launch();
     }
 }
