@@ -12,7 +12,7 @@ public class Main {
 
         try {
             persistencia.iniciarTransaccion();
-            Persona persona = new Persona("Juan", "Pérez", "juan@mail.com", "12345678", "555-1234");
+            Persona persona = new Persona("Lionel", "Messi", "messireal@mail.com", "10101010", "5450500");
             persistencia.insertar(persona);
             persistencia.confirmarTransaccion();
             System.out.println("Persona insertada correctamente.");
