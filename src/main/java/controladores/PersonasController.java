@@ -87,9 +87,9 @@ public class PersonasController {
 
     @FXML
     void onClickActivaAltaPersona(ActionEvent event) {
+        limpiar();
         if(btnAlta.getText()=="Cancelar"){
             bloquearBotones();
-            limpiar();
         }
         else{
             desbloquearBotones();
@@ -125,27 +125,20 @@ public class PersonasController {
     void onClickAltaPersona(ActionEvent event) {
         var item = tablaPersonas.getSelectionModel().getSelectedItem();
         Persona persona = (Persona) item;
-        //limpiar();
         try{
-            if (item != null && item instanceof Persona) {
-            //Persona persona = (Persona) item;
-            txtApellido.setText(persona.getApellido());
-            txtCorreo.setText(persona.getCorreo());
-            txtDni.setText(persona.getDni());
-            txtNombre.setText(persona.getNombre());
-            txtTelefono.setText(persona.getTelefono());
-            } 
+            if (item != null && item instanceof Persona && btnModificacion.getText()=="Cancelar") {
+            servicio.modificarPersona(persona.getDni(), txtNombre.getText(), txtApellido.getText(),
+                       txtCorreo.getText(), txtTelefono.getText());
+            btnAlta.setDisable(false);
+            txtDni.setDisable(false);
+        } 
 
             if (btnAlta.getText()=="Cancelar") 
             {
                 servicio.insertarPersona(txtNombre.getText(), txtApellido.getText(), txtCorreo.getText(),
                        txtDni.getText(), txtTelefono.getText());
             }
-            else if (btnModificacion.getText()=="Cancelar"){
-                servicio.modificarPersona(persona.getDni(), persona.getNombre(), persona.getApellido(),
-                       persona.getCorreo(), persona.getTelefono());
-                btnAlta.setDisable(false);
-            }
+
             bloquearBotones();
         limpiar();
         } catch (Exception e) {
@@ -204,6 +197,7 @@ public class PersonasController {
             btnAlta.setDisable(true);
             btnBaja.setDisable(true);
             btnModificacion.setText("Cancelar");
+            txtDni.setDisable(true);
         }
 }
 
