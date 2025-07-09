@@ -19,6 +19,7 @@ public class CicloCine extends Evento {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "cicloCine_id")
+
     private List<Pelicula> peliculas = new ArrayList<>();
 
 
