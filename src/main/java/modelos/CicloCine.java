@@ -3,7 +3,6 @@ package modelos;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import jakarta.persistence.*;
 
 @Entity
@@ -28,6 +27,7 @@ public class CicloCine extends Evento {
         this.tieneCharlas = tieneCharlas;
     }
 
+    
     public boolean isTieneCharlas() {
         return tieneCharlas;
     }
@@ -51,5 +51,6 @@ public class CicloCine extends Evento {
     public void setPeliculas(List<Pelicula> peliculas) {
         this.peliculas = peliculas;
     }
+
 
 }
