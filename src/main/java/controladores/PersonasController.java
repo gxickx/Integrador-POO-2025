@@ -2,6 +2,7 @@ package controladores;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableColumn;
@@ -13,22 +14,34 @@ import org.example.Main;
 
 public class PersonasController {
     @FXML
-    private TableColumn<?, ?> columnaApellido;
+    private Button btnAlta;
 
     @FXML
-    private TableColumn<?, ?> columnaCorreo;
+    private Button btnBaja;
 
     @FXML
-    private TableColumn<?, ?> columnaDni;
+    private Button btnConfirmar;
 
     @FXML
-    private TableColumn<?, ?> columnaNombre;
+    private Button btnModificacion;
 
     @FXML
-    private TableColumn<?, ?> columnaTel;
+    private TableColumn<Persona, String> columnaApellido;
 
     @FXML
-    private TableView<?> tablaPersonas;
+    private TableColumn<Persona, String> columnaCorreo;
+
+    @FXML
+    private TableColumn<Persona, String> columnaDni;
+
+    @FXML
+    private TableColumn<Persona, String> columnaNombre;
+
+    @FXML
+    private TableColumn<Persona, String> columnaTel;
+
+    @FXML
+    private TableView<Persona> tablaPersonas;
 
     @FXML
     private TextField txtApellido;
@@ -50,45 +63,91 @@ public class PersonasController {
     @FXML
     private void initialize() {
         servicio = Main.getServicio();
-        /* ACÁ Tendríamos que poner id a las columnas y filas de la tabla que vamos a mostrar la carga de personas 
+        columnaDni.setCellValueFactory(new PropertyValueFactory<>("dni"));
+        columnaNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        columnaApellido.setCellValueFactory(new PropertyValueFactory<>("apellido"));
+        columnaCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
+        columnaTel.setCellValueFactory(new PropertyValueFactory<>("telefono"));
 
-        dni.setCellValueFactory(new PropertyValueFactory<>("DNI"));
-        nombre.setCellValueFactory(new PropertyValueFactory<>("nombres"));
-        apellido.setCellValueFactory(new PropertyValueFactory<>("apellido"));
-        
-        algo así como lo de arriba
-        estaría bueno hacer como el profe y gestionar modificación junto a los inserts
-        
-        y esto de abajo es mas o menos lo que usa el profe para listar en pantalla. hay que arreglarlo un poco:
 
-        idTablaPersonas.getSelectionModel().selectedItemProperty().addListener(e -> onClickAltaPersona());
+        txtApellido.setDisable(true);
+        txtCorreo.setDisable(true);
+        txtDni.setDisable(true);
+        txtNombre.setDisable(true);
+        txtTelefono.setDisable(true);
+        btnConfirmar.setDisable(true);
+        
+        tablaPersonas.getSelectionModel().selectedItemProperty().addListener(e -> cargarDatos());
         try {
-            idTablaPersonas.getItems().addAll(servicio.listarProveedores());
+            tablaPersonas.getItems().addAll(servicio.listarPersonas());
         } catch (Exception e) {
-            Alerta.mostrarAlerta(AlertType.ERROR, "Error", "Error al iniciar", e.getMessage());
-        }*/
+            throw e;
+        }  
     }
+
     @FXML
     void onClickActivaAltaPersona(ActionEvent event) {
-    // logica para habilitar botones
+        if(btnAlta.getText()=="Cancelar"){
+            bloquearBotones();
+            limpiar();
+        }
+        else{
+            desbloquearBotones();
+            btnModificacion.setDisable(true);
+            btnAlta.setText("Cancelar");
+        }
+    }
+
+    public void bloquearBotones(){
+        txtApellido.setDisable(true);
+        txtCorreo.setDisable(true);
+        txtDni.setDisable(true);
+        txtNombre.setDisable(true);
+        txtTelefono.setDisable(true);
+        btnConfirmar.setDisable(true);
+        btnBaja.setDisable(false);
+        btnModificacion.setDisable(false);
+        btnAlta.setText("Alta");
+        btnModificacion.setText("Modificación");
+    }
+
+    public void desbloquearBotones(){
+        txtApellido.setDisable(false);
+        txtCorreo.setDisable(false);
+        txtDni.setDisable(false);
+        txtNombre.setDisable(false);
+        txtTelefono.setDisable(false);
+        btnConfirmar.setDisable(false);
+        btnBaja.setDisable(true);
     }
 
     @FXML
     void onClickAltaPersona(ActionEvent event) {
-        var selectedItem = tablaPersonas.getSelectionModel().getSelectedItem();
+        var item = tablaPersonas.getSelectionModel().getSelectedItem();
+        Persona persona = (Persona) item;
+        //limpiar();
         try{
-            if (selectedItem != null && selectedItem instanceof Persona) {
-            Persona persona = (Persona) selectedItem;
+            if (item != null && item instanceof Persona) {
+            //Persona persona = (Persona) item;
             txtApellido.setText(persona.getApellido());
             txtCorreo.setText(persona.getCorreo());
             txtDni.setText(persona.getDni());
             txtNombre.setText(persona.getNombre());
             txtTelefono.setText(persona.getTelefono());
-            } else {
+            } 
+
+            if (btnAlta.getText()=="Cancelar") 
+            {
                 servicio.insertarPersona(txtNombre.getText(), txtApellido.getText(), txtCorreo.getText(),
                        txtDni.getText(), txtTelefono.getText());
-                }
-                limpiar();
+            }
+            else if (btnModificacion.getText()=="Cancelar"){
+                servicio.modificarPersona(persona.getDni(), persona.getNombre(), persona.getApellido(),
+                       persona.getCorreo(), persona.getTelefono());
+                btnAlta.setDisable(false);
+            }
+            bloquearBotones();
+        limpiar();
         } catch (Exception e) {
             throw e;
         }
@@ -102,19 +161,63 @@ public class PersonasController {
         txtDni.setText("");
 
         tablaPersonas.getItems().clear();
-
+        try {
+            tablaPersonas.getItems().addAll(servicio.listarPersonas());
+        } catch (Exception e) {
+            throw e;
+        }
+        tablaPersonas.getSelectionModel().clearSelection();
     }
 
     @FXML
     void onClickBajaPersona(ActionEvent event) {
-
+        var item = tablaPersonas.getSelectionModel().getSelectedItem();
+        Persona persona = (Persona)item;
+        if (persona != null) {
+            try {
+                servicio.eliminarPersona(persona.getDni());
+            } catch (Exception e) {
+                throw e;
+            }
+            limpiar();
+        }
     }
 
     @FXML
     void onClickModifcarPersona(ActionEvent event) {
+        var item = tablaPersonas.getSelectionModel().getSelectedItem();
+        Persona persona = (Persona)item;
+        if(btnModificacion.getText()=="Cancelar"){
+            btnModificacion.setText("Modificación");
+            bloquearBotones();
+            btnAlta.setDisable(false);
+            limpiar();
+        }
+        else if (persona != null) {
+            txtDni.setText(persona.getDni());
+            txtApellido.setText(persona.getApellido());
+            txtCorreo.setText(persona.getCorreo());
+            txtNombre.setText(persona.getNombre());
+            txtTelefono.setText(persona.getTelefono());
+            desbloquearBotones();
+            
+            btnAlta.setDisable(true);
+            btnBaja.setDisable(true);
+            btnModificacion.setText("Cancelar");
+        }
+}
 
-    }
-
+    private void cargarDatos() {
+            var item = tablaPersonas.getSelectionModel().getSelectedItem();
+            Persona persona = (Persona)item;
+            if (persona != null) {
+                txtDni.setText(persona.getDni());
+                txtApellido.setText(persona.getApellido());
+                txtCorreo.setText(persona.getCorreo());
+                txtNombre.setText(persona.getNombre());
+                txtTelefono.setText(persona.getTelefono());
+            }
+        }
 }
 
 
