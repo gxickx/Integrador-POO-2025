@@ -68,10 +68,9 @@ public class PersonasController {
             Alerta.mostrarAlerta(AlertType.ERROR, "Error", "Error al iniciar", e.getMessage());
         }*/
     }
-
     @FXML
     void onClickActivaAltaPersona(ActionEvent event) {
-
+    // logica para habilitar botones
     }
 
     @FXML
