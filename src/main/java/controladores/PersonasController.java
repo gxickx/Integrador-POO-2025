@@ -4,7 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import persistencia.Persistencia;
 import modelos.Persona;
 import servicio.Servicio;
@@ -12,7 +13,22 @@ import org.example.Main;
 
 public class PersonasController {
     @FXML
-    private ListView<?> idTablaPersonas;
+    private TableColumn<?, ?> columnaApellido;
+
+    @FXML
+    private TableColumn<?, ?> columnaCorreo;
+
+    @FXML
+    private TableColumn<?, ?> columnaDni;
+
+    @FXML
+    private TableColumn<?, ?> columnaNombre;
+
+    @FXML
+    private TableColumn<?, ?> columnaTel;
+
+    @FXML
+    private TableView<?> tablaPersonas;
 
     @FXML
     private TextField txtApellido;
@@ -52,10 +68,14 @@ public class PersonasController {
             Alerta.mostrarAlerta(AlertType.ERROR, "Error", "Error al iniciar", e.getMessage());
         }*/
     }
+    @FXML
+    void onClickActivaAltaPersona(ActionEvent event) {
+    // logica para habilitar botones
+    }
 
     @FXML
     void onClickAltaPersona(ActionEvent event) {
-        var selectedItem = idTablaPersonas.getSelectionModel().getSelectedItem();
+        var selectedItem = tablaPersonas.getSelectionModel().getSelectedItem();
         try{
             if (selectedItem != null && selectedItem instanceof Persona) {
             Persona persona = (Persona) selectedItem;
@@ -81,7 +101,17 @@ public class PersonasController {
         txtNombre.setText("");
         txtDni.setText("");
 
-        idTablaPersonas.getItems().clear();
+        tablaPersonas.getItems().clear();
+
+    }
+
+    @FXML
+    void onClickBajaPersona(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onClickModifcarPersona(ActionEvent event) {
 
     }
 

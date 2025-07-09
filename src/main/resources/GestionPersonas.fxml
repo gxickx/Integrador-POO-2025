@@ -34,19 +34,20 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="729.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PersonasController">
+<VBox prefHeight="400.0" prefWidth="715.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PersonasController">
   <children>
-    <MenuBar prefHeight="30.0" prefWidth="682.0" VBox.vgrow="NEVER">
+    <MenuBar VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
@@ -85,32 +86,43 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="370.0" prefWidth="0.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="366.0" prefWidth="718.0" VBox.vgrow="NEVER">
       <children>
         <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" text="Drag components from Library here…" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
           <font>
             <Font size="18.0" />
           </font>
         </Label>
-            <Label layoutX="301.0" layoutY="10.0" text="Alta de persona" textAlignment="CENTER">
+            <Label layoutX="261.0" layoutY="15.0" text="Gestión de personas">
                <font>
                   <Font name="Arial" size="19.0" />
                </font></Label>
-            <TextField fx:id="txtNombre" layoutX="266.0" layoutY="47.0" />
-            <TextField fx:id="txtApellido" layoutX="533.0" layoutY="46.0" />
-            <TextField fx:id="txtDni" layoutX="49.0" layoutY="46.0" prefHeight="26.0" prefWidth="113.0" />
-            <TextField fx:id="txtCorreo" layoutX="68.0" layoutY="88.0" prefHeight="26.0" prefWidth="246.0" />
-            <TextField fx:id="txtTelefono" layoutX="402.0" layoutY="86.0" />
-            <Label layoutX="207.0" layoutY="50.0" text="Nombre" />
-            <Label layoutX="476.0" layoutY="52.0" text="Apellido" />
-            <Label layoutX="15.0" layoutY="51.0" text="DNI" />
-            <Label layoutX="14.0" layoutY="92.0" text="Correo" />
-            <Label layoutX="340.0" layoutY="92.0" text="Teléfono" />
-            <Button id="btn_agregar" layoutX="608.0" layoutY="87.0" mnemonicParsing="false" onAction="#onClickAltaPersona" text="Agregar" />
-            <ListView fx:id="idTablaPersonas" layoutX="19.0" layoutY="130.0" prefHeight="184.0" prefWidth="686.0" />
-            <Button id="btn_alta" layoutX="492.0" layoutY="325.0" mnemonicParsing="false" text="Alta" />
-            <Button id="btn_baja" layoutX="546.0" layoutY="325.0" mnemonicParsing="false" prefWidth="50.0" text="Baja" />
-            <Button id="btn_modif" layoutX="604.0" layoutY="324.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="Modificación" />
+            <TextField fx:id="txtDni" layoutX="75.0" layoutY="48.0" prefHeight="26.0" prefWidth="113.0" />
+            <TextField fx:id="txtNombre" layoutX="278.0" layoutY="49.0" />
+            <TextField fx:id="txtApellido" layoutX="540.0" layoutY="48.0" />
+            <TextField fx:id="txtCorreo" layoutX="87.0" layoutY="88.0" prefHeight="26.0" prefWidth="213.0" />
+            <TextField fx:id="txtTelefono" layoutX="391.0" layoutY="88.0" prefHeight="26.0" prefWidth="150.0" />
+            <Label layoutX="222.0" layoutY="53.0" text="Nombre" />
+            <Label layoutX="484.0" layoutY="52.0" text="Apellido" />
+            <Label layoutX="33.0" layoutY="53.0" text="DNI" />
+            <Label layoutX="33.0" layoutY="92.0" text="Correo" />
+            <Label layoutX="334.0" layoutY="92.0" text="Teléfono" />
+            <Button layoutX="453.0" layoutY="339.0" mnemonicParsing="false" onAction="#onClickActivaAltaPersona" prefHeight="26.0" prefWidth="57.0" text="Alta" />
+            <TableView id="tablaPersonas" fx:id="tablaPersonas" layoutX="32.0" layoutY="133.0" prefHeight="200.0" prefWidth="659.0">
+              <columns>
+                <TableColumn fx:id="columnaDni" prefWidth="75.0" text="DNI" />
+                <TableColumn id="columnaNombre" fx:id="columnaNombre" prefWidth="75.0" text="Nombre" />
+                  <TableColumn id="columnaApellido" fx:id="columnaApellido" prefWidth="75.0" text="Apellido" />
+                  <TableColumn fx:id="columnaCorreo" prefWidth="75.0" text="Correo" />
+                  <TableColumn fx:id="columnaTel" prefWidth="75.0" text="Teléfono" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <Button layoutX="523.0" layoutY="339.0" mnemonicParsing="false" onAction="#onClickBajaPersona" prefHeight="26.0" prefWidth="57.0" text="Baja" />
+            <Button layoutX="596.0" layoutY="339.0" mnemonicParsing="false" onAction="#onClickModifcarPersona" prefHeight="26.0" prefWidth="95.0" text="Modificación" />
+            <Button layoutX="605.0" layoutY="88.0" mnemonicParsing="false" onAction="#onClickAltaPersona" prefHeight="26.0" prefWidth="84.0" text="Confirmar" />
       </children>
     </AnchorPane>
   </children>
