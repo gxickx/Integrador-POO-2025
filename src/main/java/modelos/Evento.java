@@ -11,7 +11,7 @@ import jakarta.persistence.*;
 public abstract class Evento {
     @Id
     @Column(columnDefinition = "UUID")
-    private UUID idEnvento = UUID.randomUUID();
+    private UUID idEvento = UUID.randomUUID();
 
     @Column(length = 50, nullable = false)
     private String nombre;
