@@ -1,9 +1,21 @@
 package modelos;
 
 import java.util.Date;
+import java.util.UUID;
 
-public class CicloCine extends Evento {
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+
+@Entity
+@Table(name = "cicloCine")
+public class CicloCine extends Evento {    
+    @Column()
     private Pelicula[] peliculas;
+
+    @Column(nullable = false)
     private boolean tieneCharlas;
 
     public CicloCine(String nombre, Date fechaInicio, int duracion, EstadoEvento estado, boolean requiereInscripcion, boolean tieneCupo, int cupoMaximo, boolean tieneCharlas) {
@@ -12,6 +24,7 @@ public class CicloCine extends Evento {
         this.tieneCharlas = tieneCharlas;
     }
 
+    
     public boolean isTieneCharlas() {
         return tieneCharlas;
     }
@@ -21,4 +34,6 @@ public class CicloCine extends Evento {
             throw new IllegalArgumentException("La película no puede ser nula.");
         }
     }
+
+    
 }
