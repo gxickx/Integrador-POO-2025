@@ -1,18 +1,17 @@
 package modelos;
 import java.util.UUID;
 import java.util.Date;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+
+import jakarta.persistence.*;
 
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "evento")
-public class Evento {
+public abstract class Evento {
     @Id
     @Column(columnDefinition = "UUID")
-    private UUID idEnvento = UUID.randomUUID();
+    private UUID idEvento = UUID.randomUUID();
 
     @Column(length = 50, nullable = false)
     private String nombre;
