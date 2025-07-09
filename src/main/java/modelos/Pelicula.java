@@ -3,7 +3,6 @@ package modelos;
 public class Pelicula {
     private CicloCine cicloCine;
     private String titulo;
-    private int orden;
 
     public Pelicula(CicloCine cicloCine, String titulo, int orden) {
         if (cicloCine == null) {
@@ -12,12 +11,7 @@ public class Pelicula {
         if (titulo == null || titulo.isEmpty()) {
             throw new IllegalArgumentException("El título de la película no puede ser nulo o vacío.");
         }
-        if (orden < 1) {
-            throw new IllegalArgumentException("El orden debe ser un número positivo.");
-        }
-
         this.titulo = titulo;
-        this.orden = orden;
     }
 
 

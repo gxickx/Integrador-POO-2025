@@ -13,15 +13,16 @@ public class Servicio {
         this.persistencia = p;
     }
 
+
     public void insertarPersona(String nombre, String apellido, String correo, String dni, String telefono) {
         try {
             this.persistencia.iniciarTransaccion();
             Persona persona = new Persona(nombre, apellido, correo, dni, telefono);
             this.persistencia.insertar(persona);
             this.persistencia.confirmarTransaccion();
-        } catch (Exception var6) {
+        } catch (Exception e) {
             this.persistencia.descartarTransaccion();
-            throw var6;
+            throw e;
         }
     }
 
