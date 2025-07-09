@@ -3,7 +3,10 @@ package servicio;
 import java.time.LocalDate;
 import persistencia.Persistencia;
 import modelos.Persona;
+
+import java.util.ArrayList;
 import java.util.UUID;
+import java.util.List;
 
 
 public class Servicio {
@@ -45,7 +48,7 @@ public class Servicio {
         }
     }
 
-    public void modificarPersona (String dni, String nombre, String apellido, String correo, String telefono) {
+    public void modificarPersona(String dni, String nombre, String apellido, String correo, String telefono) {
         try{
             this.persistencia.iniciarTransaccion();
             var persona = this.persistencia.buscar(Persona.class, dni);
@@ -64,6 +67,17 @@ public class Servicio {
             throw e;
         }
 
+    }
+    
+    public List<Persona> listarPersonas() {
+        var personas = this.persistencia.buscarTodos(Persona.class);
+        var listado = new ArrayList<Persona>();
+        for (var persona : personas) {
+            if (persona.isBaja() == false) {
+                listado.add(persona);
+            }
+        }
+        return listado;
     }
 
 }
