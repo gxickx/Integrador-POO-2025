@@ -9,7 +9,7 @@ instance" version="2.2" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persiste
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/integradorPOO2025"/>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />
             <property name="jakarta.persistence.jdbc.user" value="postgres" />
-            <property name="jakarta.persistence.jdbc.password" value="postgres" />
+            <property name="jakarta.persistence.jdbc.password" value="guille123" />
             <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
         </properties>
     </persistence-unit>
