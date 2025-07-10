@@ -1,7 +1,7 @@
 package org.example;
 
 import java.io.IOException;
-import jakarta.persistence.EntityManagerFactory;
+
 import jakarta.persistence.Persistence;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import persistencia.Persistencia;
 import servicio.Servicio;
-import modelos.Persona;
 
 public class Main extends Application{
 /*   public static void main(String[] args) {

@@ -1,11 +1,9 @@
 package servicio;
 
-import java.time.LocalDate;
 import persistencia.Persistencia;
 import modelos.Persona;
 
 import java.util.ArrayList;
-import java.util.UUID;
 import java.util.List;
 
 
