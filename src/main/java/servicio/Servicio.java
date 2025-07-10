@@ -1,20 +1,26 @@
 package servicio;
 
+import jakarta.persistence.EntityManager;
+import modelos.EstadoEvento;
 import persistencia.Persistencia;
 import modelos.Persona;
+import modelos.Evento;
+import modelos.EstadoEvento;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 public class Servicio {
     private Persistencia persistencia;
+    private EntityManager em;
 
     public Servicio(Persistencia p) {
         this.persistencia = p;
     }
 
-
+// Servicio para la clase Persona
     public void insertarPersona(String nombre, String apellido, String correo, String dni, String telefono) {
         try {
             this.persistencia.iniciarTransaccion();
@@ -77,5 +83,41 @@ public class Servicio {
         }
         return listado;
     }
+
+    // Servicio para la clase Evento
+
+    public List<Evento> listarEventosConfirmados() {
+        var eventos = this.persistencia.buscarTodos(Evento.class);
+        var confirmados = new ArrayList<Evento>();
+
+        for (var evento : eventos) {
+            if (evento.getEstado() == EstadoEvento.CONFIRMADO) {
+                confirmados.add(evento);
+            }
+        }
+
+        return confirmados;
+    }
+
+    public List<Evento> listarEventos() {
+        return this.persistencia.buscarTodos(Evento.class);
+    }
+
+    public Evento buscarEvento(UUID uuid){
+        return this.persistencia.buscar(Evento.class, uuid);
+    }
+
+    public void insertarEvento(Evento evento) {
+        try {
+            this.persistencia.iniciarTransaccion();
+            this.persistencia.insertar(evento);
+            this.persistencia.confirmarTransaccion();
+        } catch (Exception e) {
+            this.persistencia.descartarTransaccion();
+            throw e;
+        }
+    }
+
+
 
 }

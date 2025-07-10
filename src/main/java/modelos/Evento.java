@@ -86,5 +86,7 @@ public abstract class Evento {
         return cupoMaximo;
     }
 
-
+// SI TERMINAMOS POR HACER LO DE LA CLASE PARTICIPACIÓN: AGREGAR
+    /*@OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Participacion> participaciones = new ArrayList<>();*/
 }

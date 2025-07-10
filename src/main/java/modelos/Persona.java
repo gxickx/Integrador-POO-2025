@@ -121,4 +121,9 @@ public class Persona {
     public String toString() {
         return String.format("%s %s (%s)", nombre, apellido, dni);
     }
+
+    // SI TERMINAMOS POR HACER LO DE LA CLASE PARTICIPACIÓN: AGREGAR
+    /*@OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)
+private List<Participacion> participaciones = new ArrayList<>();*/
+
 }
