@@ -10,6 +10,7 @@ instance" version="2.2" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persiste
         <class>modelos.Feria</class>
         <class>modelos.Taller</class>
         <class>modelos.Participacion</class>
+        <class>modelos.ParticipacionId</class>
         <class>modelos.Persona</class>
         <class>modelos.Pelicula</class>
 
