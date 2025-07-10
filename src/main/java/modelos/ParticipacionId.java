@@ -1,15 +1,15 @@
 package modelos;
+import jakarta.persistence.*;
+import java.util.UUID;
+import java.io.Serializable;
+import java.util.Objects;
 
-public class ParticipacionId {
-    //aca va la clase embebida
-
-    /*
-    * cosa de chatgpt
-    * @Embeddable
+@Embeddable
 public class ParticipacionId implements Serializable {
     private String personaDni;
     private UUID eventoId;
 
+    //JPA necesita un constructor vacio
     public ParticipacionId() {}
 
     public ParticipacionId(String personaDni, UUID eventoId) {
@@ -17,7 +17,6 @@ public class ParticipacionId implements Serializable {
         this.eventoId = eventoId;
     }
 
-    // Getters y Setters
     public String getPersonaDni() {
         return personaDni;
     }
@@ -26,7 +25,8 @@ public class ParticipacionId implements Serializable {
         return eventoId;
     }
 
-    // equals y hashCode (requeridos)
+    // metodos necesarios para que JPA funcione correctamente
+    // equals para evitar duplicados en un evento, por ejemplo
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -35,9 +35,10 @@ public class ParticipacionId implements Serializable {
                Objects.equals(eventoId, that.eventoId);
     }
 
+    // hashcode se utiliza para indexar los datos
     @Override
     public int hashCode() {
         return Objects.hash(personaDni, eventoId);
     }
-    * */
+
 }

@@ -1,10 +1,9 @@
 package modelos;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
+import jakarta.persistence.*;
+import java.util.List;
+import modelos.Participacion;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "persona")
@@ -27,6 +26,9 @@ public class Persona {
 
     @Column(nullable = false)
     private boolean baja = false;
+
+    @OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Participacion> participaciones = new ArrayList<>();
 
     protected Persona() {
     }
@@ -122,8 +124,6 @@ public class Persona {
         return String.format("%s %s (%s)", nombre, apellido, dni);
     }
 
-    // SI TERMINAMOS POR HACER LO DE LA CLASE PARTICIPACIÓN: AGREGAR
-    /*@OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)
-private List<Participacion> participaciones = new ArrayList<>();*/
+
 
 }

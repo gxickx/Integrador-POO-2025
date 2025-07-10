@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
+@DiscriminatorValue("TALLER")
 @Table(name = "taller")
 public class Taller extends Evento {
 

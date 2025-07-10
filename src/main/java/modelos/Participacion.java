@@ -1,10 +1,10 @@
 package modelos;
+import jakarta.persistence.*;
+import java.util.UUID;
+import modelos.Persona;
 
-public class Participacion {
-
-    //aca va la clase entidad
-    /*modelo de chat
-    * @Entity
+//aca va la clase entidad
+@Entity
 @Table(name = "participacion")
 public class Participacion {
 
@@ -13,11 +13,11 @@ public class Participacion {
 
     @ManyToOne
     @MapsId("personaDni")
-    @JoinColumn(name = "persona_dni", nullable = false)
+    @JoinColumn(name = "dni", nullable = false)
     private Persona persona;
 
     @ManyToOne
-    @MapsId("eventoId")
+    @MapsId("eventoId")  // mapea la id de la clase embebida ParticipacionId
     @JoinColumn(name = "evento_id", nullable = false)
     private Evento evento;
 
@@ -51,6 +51,7 @@ public class Participacion {
         return rol;
     }
 
-    // Setters si necesitás
-} */
+    // No se si setters sean necesarios, podemos dejar así para hacerlo mas sencillo
+
+
 }

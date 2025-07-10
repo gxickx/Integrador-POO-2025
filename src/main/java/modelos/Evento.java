@@ -1,25 +1,26 @@
 package modelos;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.Date;
-
 import jakarta.persistence.*;
 
-
+@DiscriminatorColumn(name = "tipo_evento", discriminatorType = DiscriminatorType.STRING)
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "evento")
 public abstract class Evento {
     @Id
-    @Column(columnDefinition = "UUID")
+    @Column(name = "evento_id", columnDefinition = "UUID")
     private UUID idEvento = UUID.randomUUID();
 
     @Column(length = 50, nullable = false)
     private String nombre;
 
-    @Column(length = 50, nullable = false)
+    @Column(nullable = false)
     private Date fechaInicio;
 
-    @Column(length = 100, nullable = false)
+    @Column(nullable = false)
     private int duracion;
 
     @Column(length = 20, nullable = false)
@@ -34,6 +35,8 @@ public abstract class Evento {
     @Column(nullable = false)
     private int cupoMaximo;
 
+    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Participacion> participaciones = new ArrayList<>();
 
     protected Evento() {
 
@@ -58,6 +61,9 @@ public abstract class Evento {
         this.cupoMaximo = cupoMaximo;
     }
 
+    public UUID getIdEvento() {
+        return idEvento;
+    }
     public String getNombre() {
         return nombre;
     }
@@ -86,7 +92,5 @@ public abstract class Evento {
         return cupoMaximo;
     }
 
-// SI TERMINAMOS POR HACER LO DE LA CLASE PARTICIPACIÓN: AGREGAR
-    /*@OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Participacion> participaciones = new ArrayList<>();*/
+
 }

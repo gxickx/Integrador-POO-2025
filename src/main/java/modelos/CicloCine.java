@@ -6,6 +6,7 @@ import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
+@DiscriminatorValue("CICLO_CINE")
 @Table(name = "cicloCine")
 public class CicloCine extends Evento {
 

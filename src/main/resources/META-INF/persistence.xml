@@ -3,8 +3,18 @@
 instance" version="2.2" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
     <persistence-unit name="integradorPOO2025" transaction-type="RESOURCE_LOCAL">      
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>modelos.Evento</class>
+        <class>modelos.CicloCine</class>
+        <class>modelos.Concierto</class>
+        <class>modelos.Exposicion</class>
+        <class>modelos.Feria</class>
+        <class>modelos.Taller</class>
+        <class>modelos.Participacion</class>
         <class>modelos.Persona</class>
-        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <class>modelos.Pelicula</class>
+
+
+        <!-- <exclude-unlisted-classes>true</exclude-unlisted-classes> -->
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/integradorPOO2025"/>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />
