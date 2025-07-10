@@ -55,8 +55,12 @@ public class PersonasController {
 
     @FXML
     private TextField txtTelefono;
+    
+    @FXML
+    private Button btnVolver;
 
     private Servicio servicio;
+
 
     @FXML
     private void initialize() {
@@ -210,6 +214,11 @@ public class PersonasController {
                 txtTelefono.setText(persona.getTelefono());
             }
         }
+
+    @FXML
+    void onClickVolverInicio(ActionEvent event) {
+
+    }
 }
 
 
