@@ -2,18 +2,26 @@ package controladores;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Menu;
+import javafx.scene.control.Button;
 
 public class InicioController {
 
     @FXML
-    private Menu btnIrEventos;
+    private Button btnIrCalendario;
 
     @FXML
-    private Menu btnIrParticipacion;
+    private Button btnIrEventos;
 
     @FXML
-    private Menu btnIrPersonas;
+    private Button btnIrParticipacion;
+
+    @FXML
+    private Button btnIrPersonas;
+
+    @FXML
+    void onClickIrCalendario(ActionEvent event) {
+
+    }
 
     @FXML
     void onClickIrEventos(ActionEvent event) {

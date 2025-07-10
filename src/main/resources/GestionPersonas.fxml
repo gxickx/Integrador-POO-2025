@@ -34,10 +34,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -47,45 +43,6 @@
 
 <VBox prefHeight="400.0" prefWidth="715.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PersonasController">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
-      <menus>
-        <Menu mnemonicParsing="false" text="File">
-          <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Help">
-          <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
-          </items>
-        </Menu>
-      </menus>
-    </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="366.0" prefWidth="718.0" VBox.vgrow="NEVER">
       <children>
         <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" text="Drag components from Library here…" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
@@ -107,8 +64,8 @@
             <Label layoutX="33.0" layoutY="53.0" text="DNI" />
             <Label layoutX="33.0" layoutY="92.0" text="Correo" />
             <Label layoutX="334.0" layoutY="92.0" text="Teléfono" />
-            <Button fx:id="btnAlta" layoutX="380.0" layoutY="339.0" mnemonicParsing="false" onAction="#onClickActivaAltaPersona" prefHeight="26.0" prefWidth="95.0" text="Alta" />
-            <TableView id="tablaPersonas" fx:id="tablaPersonas" layoutX="32.0" layoutY="133.0" prefHeight="200.0" prefWidth="659.0">
+            <Button fx:id="btnAlta" layoutX="380.0" layoutY="368.0" mnemonicParsing="false" onAction="#onClickActivaAltaPersona" prefHeight="26.0" prefWidth="95.0" text="Alta" />
+            <TableView id="tablaPersonas" fx:id="tablaPersonas" layoutX="32.0" layoutY="133.0" prefHeight="226.0" prefWidth="659.0">
               <columns>
                 <TableColumn fx:id="columnaDni" prefWidth="75.0" text="DNI" />
                 <TableColumn id="columnaNombre" fx:id="columnaNombre" prefWidth="75.0" text="Nombre" />
@@ -120,8 +77,8 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Button fx:id="btnBaja" layoutX="486.0" layoutY="339.0" mnemonicParsing="false" onAction="#onClickBajaPersona" prefHeight="26.0" prefWidth="102.0" text="Baja" />
-            <Button fx:id="btnModificacion" layoutX="596.0" layoutY="339.0" mnemonicParsing="false" onAction="#onClickModifcarPersona" prefHeight="26.0" prefWidth="95.0" text="Modificación" />
+            <Button fx:id="btnBaja" layoutX="486.0" layoutY="368.0" mnemonicParsing="false" onAction="#onClickBajaPersona" prefHeight="26.0" prefWidth="102.0" text="Baja" />
+            <Button fx:id="btnModificacion" layoutX="596.0" layoutY="368.0" mnemonicParsing="false" onAction="#onClickModifcarPersona" prefHeight="26.0" prefWidth="95.0" text="Modificación" />
             <Button fx:id="btnConfirmar" layoutX="605.0" layoutY="88.0" mnemonicParsing="false" onAction="#onClickAltaPersona" prefHeight="26.0" prefWidth="84.0" text="Confirmar" />
       </children>
     </AnchorPane>
