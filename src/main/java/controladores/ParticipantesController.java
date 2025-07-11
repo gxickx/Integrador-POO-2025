@@ -34,9 +34,6 @@ public class ParticipantesController {
     private Button btnConfirmar;
 
     @FXML
-    private Button btnModificacion;
-
-    @FXML
     private Button btnVolver;
 
     @FXML
@@ -148,7 +145,6 @@ public class ParticipantesController {
             comboVerTipoEvento.setOnAction(this::onSeleccionarTipoEvento);
         } else {
             desbloquearBotones();
-            btnModificacion.setDisable(true);
             btnAlta.setText("Cancelar");
             comboVerTipoEvento.getSelectionModel().select("Todos los eventos");
         }
@@ -159,7 +155,6 @@ public class ParticipantesController {
         comboPersona.setDisable(true);
         comboRol.setDisable(true);
         btnBaja.setDisable(false);
-        btnModificacion.setDisable(false);
         btnConfirmar.setDisable(true);
         btnAlta.setText("Alta");
         comboVerTipoEvento.setDisable(false);
@@ -181,7 +176,8 @@ public class ParticipantesController {
         Persona persona = comboPersona.getValue();
         Evento evento = comboEvento.getValue();
         RolPersona rol = comboRol.getValue();
-        if (btnAlta.getText().equals("Cancelar") && persona != null && evento != null && rol != null) {
+        try{
+            if (btnAlta.getText().equals("Cancelar") && persona != null && evento != null && rol != null) {
             if (evento.getEstado() != EstadoEvento.CONFIRMADO) {
                 Alerta.mostrarAlerta("Error", "Solo se pueden agregar personas a eventos CONFIRMADOS.");
                 limpiar();
@@ -198,6 +194,12 @@ public class ParticipantesController {
         bloquearBotones();
         limpiar();
         comboVerTipoEvento.getSelectionModel().select("Todos los eventos");
+
+        
+
+        } catch (Exception e) {
+            Alerta.error("Error", e.getMessage());
+        }
     }
 
     @FXML
@@ -214,19 +216,7 @@ public class ParticipantesController {
         }
     }
 
-    @FXML
-    void onClickModifcarPersona(ActionEvent event) {
-        var persona = tablaPersonas.getSelectionModel().getSelectedItem();
-        if (btnModificacion.getText().equals("Cancelar")) {
-            btnModificacion.setText("Modificación");
-            bloquearBotones();
-            btnAlta.setDisable(false);
-            limpiar();
-        } else if (persona != null) {
-            desbloquearBotones();
-            comboEvento.setDisable(true);
-        }
-    }
+
 
     @FXML
     void onClickVolverInicio(ActionEvent event) throws IOException {
