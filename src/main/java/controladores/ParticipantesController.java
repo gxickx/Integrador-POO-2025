@@ -157,6 +157,7 @@ public class ParticipantesController {
         if (btnAlta.getText()=="Cancelar" && persona != null && evento != null && rol != null) {
             if (evento.getEstado() != EstadoEvento.CONFIRMADO){
                 Alerta.mostrarAlerta("Error", "Solo se pueden agregar personas a eventos CONFIRMADOS.");
+                limpiar();
                 return;
             }
             Participacion participacion = new Participacion(persona, evento, rol);

@@ -217,6 +217,9 @@ public void insertarParticipacion(Participacion participacion) {
                 throw new IllegalArgumentException("La persona ya está inscripta en este evento.");
             }
         } else {
+
+            Evento evento = participacion.getEvento();
+            evento.agregarParticipacion(participacion);
             this.persistencia.insertar(participacion);
         }
         this.persistencia.confirmarTransaccion();
@@ -243,6 +246,8 @@ public void insertarParticipacion(Participacion participacion) {
         participacion.setBaja();
         this.persistencia.modificar(participacion);
         this.persistencia.confirmarTransaccion();
+        Evento evento = participacion.getEvento();
+        evento.removerParticipacion(participacion);
     } catch (Exception e) {
         this.persistencia.descartarTransaccion();
         throw e;
