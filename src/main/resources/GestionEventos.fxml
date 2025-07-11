@@ -47,18 +47,21 @@
 
 <VBox xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.EventosController">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="506.0" prefWidth="925.0" VBox.vgrow="NEVER">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="610.0" prefWidth="925.0" VBox.vgrow="NEVER">
       <children>
             <Label layoutX="365.0" layoutY="21.0" text="Gestión de Eventos">
                <font>
                   <Font name="Arial" size="19.0" />
                </font></Label>
+            <DatePicker fx:id="dateInicio" layoutX="552.0" layoutY="65.0" prefHeight="26.0" prefWidth="131.0" />
+            <DatePicker fx:id="dateFin" layoutX="769.0" layoutY="66.0" prefHeight="26.0" prefWidth="131.0" />
+            <ComboBox fx:id="comboTipoEvento" layoutX="28.0" layoutY="149.0" prefHeight="26.0" prefWidth="221.0" promptText="Seleccione tipo" />
             <TextField fx:id="txtNombreEvento" layoutX="74.0" layoutY="66.0" prefHeight="26.0" prefWidth="363.0" />
             <Label layoutX="20.0" layoutY="70.0" text="Nombre" />
             <Label layoutX="454.0" layoutY="70.0" text="Fecha de inicio" />
             <Label layoutX="693.0" layoutY="70.0" text="Fecha de fin" />
-            <Button fx:id="btnAlta" layoutX="587.0" layoutY="465.0" mnemonicParsing="false" onAction="#onClickActivaAltaEvento" prefHeight="26.0" prefWidth="95.0" text="Alta" />
-            <TableView id="tablaEventos" fx:id="tablaEventos" layoutX="25.0" layoutY="259.0" prefHeight="200.0" prefWidth="873.0">
+            <Button fx:id="btnAlta" layoutX="587.0" layoutY="578.0" mnemonicParsing="false" onAction="#onClickActivaAltaEvento" prefHeight="26.0" prefWidth="95.0" text="Alta" />
+            <TableView id="tablaEventos" fx:id="tablaEventos" layoutX="25.0" layoutY="259.0" prefHeight="314.0" prefWidth="874.0">
               <columns>
                 <TableColumn fx:id="columnaID" prefWidth="82.39999198913574" text="ID" />
                 <TableColumn id="columnaNombre" fx:id="columnaNombre" prefWidth="200.79999542236328" text="Nombre" />
@@ -72,21 +75,17 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Button fx:id="btnBaja" layoutX="693.0" layoutY="465.0" mnemonicParsing="false" onAction="#onClickBajaEvento" prefHeight="26.0" prefWidth="102.0" text="Baja" />
-            <Button fx:id="btnModificacion" layoutX="803.0" layoutY="465.0" mnemonicParsing="false" onAction="#onClickModificarEvento" prefHeight="26.0" prefWidth="95.0" text="Modificación" />
-            <Button fx:id="btnConfirmar" layoutX="816.0" layoutY="215.0" mnemonicParsing="false" onAction="#onClickAltaEvento" prefHeight="26.0" prefWidth="84.0" text="Confirmar" />
+            <Button fx:id="btnBaja" layoutX="693.0" layoutY="578.0" mnemonicParsing="false" onAction="#onClickBajaEvento" prefHeight="26.0" prefWidth="102.0" text="Baja" />
+            <Button fx:id="btnModificacion" layoutX="803.0" layoutY="578.0" mnemonicParsing="false" onAction="#onClickModificarEvento" prefHeight="26.0" prefWidth="95.0" text="Modificación" />
             <Label layoutX="28.0" layoutY="122.0" text="Tipo de evento" />
             <Label layoutX="708.0" layoutY="122.0" prefHeight="20.0" prefWidth="120.0" text="Estado del evento" />
-            <DatePicker fx:id="dateInicio" layoutX="552.0" layoutY="65.0" prefHeight="26.0" prefWidth="131.0" />
-            <DatePicker fx:id="dateFin" layoutX="769.0" layoutY="66.0" prefHeight="26.0" prefWidth="131.0" />
-            <ComboBox fx:id="comboTipoEvento" layoutX="28.0" layoutY="149.0" prefHeight="26.0" prefWidth="221.0" promptText="Seleccione tipo" />
             <ComboBox fx:id="comboEstadoEvento" layoutX="708.0" layoutY="149.0" prefHeight="26.0" prefWidth="190.0" promptText="Seleccione estado" />
             <Separator layoutX="-3.0" layoutY="109.0" prefHeight="12.0" prefWidth="926.0" />
             <Label id="labelCombo" fx:id="labelCombo" layoutX="307.0" layoutY="122.0" text=" " />
             <ComboBox fx:id="comboOpcional" layoutX="307.0" layoutY="149.0" prefHeight="26.0" prefWidth="221.0" />
             <TextField id="textOpcional" fx:id="textOpcional" layoutX="307.0" layoutY="215.0" prefHeight="26.0" prefWidth="222.0" />
             <Label id="labelCombo" fx:id="labelTextOpcional" layoutX="307.0" layoutY="192.0" text=" " />
-            <Button fx:id="btnVolver" layoutX="25.0" layoutY="465.0" mnemonicParsing="false" onAction="#onClickVolverInicio" prefHeight="26.0" prefWidth="71.0" text="← Volver">
+            <Button fx:id="btnVolver" layoutX="25.0" layoutY="578.0" mnemonicParsing="false" onAction="#onClickVolverInicio" prefHeight="26.0" prefWidth="71.0" text="← Volver">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -94,11 +93,11 @@
             <CheckBox fx:id="checkAlAireLibre" layoutX="540.0" layoutY="220.0" mnemonicParsing="false" text="Al aire libre" />
             <CheckBox fx:id="checkTieneCharlas" layoutX="535.0" layoutY="154.0" mnemonicParsing="false" text="Tiene charlas" />
             <CheckBox fx:id="checkTieneInscripcion" layoutX="28.0" layoutY="192.0" mnemonicParsing="false" text="Con inscripción" />
-          <CheckBox fx:id="checkTieneCupo" layoutX="28.0" layoutY="220.0"
-                    mnemonicParsing="false" text="Tiene cupo"
-                    onAction="#onClickCheckTieneCupo"/>
+          <CheckBox fx:id="checkTieneCupo" layoutX="28.0" layoutY="220.0" mnemonicParsing="false" onAction="#onClickCheckTieneCupo" text="Tiene cupo" />
+            <Button fx:id="btnConfirmar" layoutX="816.0" layoutY="215.0" mnemonicParsing="false" onAction="#onClickAltaEvento" prefHeight="26.0" prefWidth="84.0" text="Confirmar" />
             <TextField fx:id="txtCupoMax" layoutX="165.0" layoutY="215.0" prefHeight="30.0" prefWidth="84.0" promptText="Cupo max" />
             <Label layoutX="148.0" layoutY="220.0" />
+            <Button fx:id="btnIrCalendario" layoutX="107.0" layoutY="578.0" mnemonicParsing="false" onAction="#onClickIrCalendario" prefHeight="26.0" prefWidth="143.0" text="Calendario de Eventos" />
       </children>
     </AnchorPane>
   </children>
