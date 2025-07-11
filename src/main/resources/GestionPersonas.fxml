@@ -43,29 +43,29 @@
 
 <VBox prefHeight="400.0" prefWidth="715.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PersonasController">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="366.0" prefWidth="718.0" VBox.vgrow="NEVER">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="925.0" VBox.vgrow="NEVER">
       <children>
         <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" text="Drag components from Library here…" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
           <font>
             <Font size="18.0" />
           </font>
         </Label>
-            <Label layoutX="261.0" layoutY="15.0" text="Gestión de personas">
+            <Label layoutX="340.0" layoutY="14.0" text="Gestión de personas">
                <font>
                   <Font name="Arial" size="19.0" />
                </font></Label>
-            <TextField fx:id="txtDni" layoutX="75.0" layoutY="48.0" prefHeight="26.0" prefWidth="113.0" />
-            <TextField fx:id="txtNombre" layoutX="278.0" layoutY="49.0" />
-            <TextField fx:id="txtApellido" layoutX="540.0" layoutY="48.0" />
-            <TextField fx:id="txtCorreo" layoutX="87.0" layoutY="88.0" prefHeight="26.0" prefWidth="213.0" />
-            <TextField fx:id="txtTelefono" layoutX="391.0" layoutY="88.0" prefHeight="26.0" prefWidth="150.0" />
-            <Label layoutX="222.0" layoutY="53.0" text="Nombre" />
-            <Label layoutX="484.0" layoutY="52.0" text="Apellido" />
-            <Label layoutX="33.0" layoutY="53.0" text="DNI" />
-            <Label layoutX="33.0" layoutY="92.0" text="Correo" />
-            <Label layoutX="334.0" layoutY="92.0" text="Teléfono" />
-            <Button fx:id="btnAlta" layoutX="380.0" layoutY="368.0" mnemonicParsing="false" onAction="#onClickActivaAltaPersona" prefHeight="26.0" prefWidth="95.0" text="Alta" />
-            <TableView id="tablaPersonas" fx:id="tablaPersonas" layoutX="32.0" layoutY="133.0" prefHeight="226.0" prefWidth="659.0">
+            <TextField fx:id="txtDni" layoutX="75.0" layoutY="61.0" prefHeight="26.0" prefWidth="113.0" />
+            <TextField fx:id="txtNombre" layoutX="309.0" layoutY="61.0" prefHeight="26.0" prefWidth="257.0" />
+            <TextField fx:id="txtApellido" layoutX="665.0" layoutY="61.0" prefHeight="26.0" prefWidth="220.0" />
+            <TextField fx:id="txtCorreo" layoutX="87.0" layoutY="101.0" prefHeight="26.0" prefWidth="258.0" />
+            <TextField fx:id="txtTelefono" layoutX="490.0" layoutY="101.0" prefHeight="26.0" prefWidth="150.0" />
+            <Label layoutX="253.0" layoutY="65.0" text="Nombre" />
+            <Label layoutX="609.0" layoutY="65.0" text="Apellido" />
+            <Label layoutX="33.0" layoutY="66.0" text="DNI" />
+            <Label layoutX="33.0" layoutY="105.0" text="Correo" />
+            <Label layoutX="433.0" layoutY="105.0" text="Teléfono" />
+            <Button fx:id="btnAlta" layoutX="573.0" layoutY="465.0" mnemonicParsing="false" onAction="#onClickActivaAltaPersona" prefHeight="26.0" prefWidth="95.0" text="Alta" />
+            <TableView id="tablaPersonas" fx:id="tablaPersonas" layoutX="30.0" layoutY="140.0" prefHeight="310.0" prefWidth="851.0">
               <columns>
                 <TableColumn fx:id="columnaDni" prefWidth="75.0" text="DNI" />
                 <TableColumn id="columnaNombre" fx:id="columnaNombre" prefWidth="75.0" text="Nombre" />
@@ -77,10 +77,10 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Button fx:id="btnBaja" layoutX="486.0" layoutY="368.0" mnemonicParsing="false" onAction="#onClickBajaPersona" prefHeight="26.0" prefWidth="102.0" text="Baja" />
-            <Button fx:id="btnModificacion" layoutX="596.0" layoutY="368.0" mnemonicParsing="false" onAction="#onClickModifcarPersona" prefHeight="26.0" prefWidth="95.0" text="Modificación" />
-            <Button fx:id="btnConfirmar" layoutX="605.0" layoutY="88.0" mnemonicParsing="false" onAction="#onClickAltaPersona" prefHeight="26.0" prefWidth="84.0" text="Confirmar" />
-            <Button fx:id="btnVolver" layoutX="31.0" layoutY="368.0" mnemonicParsing="false" onAction="#onClickVolverInicio" prefHeight="26.0" prefWidth="71.0" text="← Volver">
+            <Button fx:id="btnBaja" layoutX="679.0" layoutY="465.0" mnemonicParsing="false" onAction="#onClickBajaPersona" prefHeight="26.0" prefWidth="102.0" text="Baja" />
+            <Button fx:id="btnModificacion" layoutX="789.0" layoutY="465.0" mnemonicParsing="false" onAction="#onClickModifcarPersona" prefHeight="26.0" prefWidth="95.0" text="Modificación" />
+            <Button fx:id="btnConfirmar" layoutX="801.0" layoutY="100.0" mnemonicParsing="false" onAction="#onClickAltaPersona" prefHeight="26.0" prefWidth="84.0" text="Confirmar" />
+            <Button fx:id="btnVolver" layoutX="32.0" layoutY="465.0" mnemonicParsing="false" onAction="#onClickVolverInicio" prefHeight="26.0" prefWidth="71.0" text="← Volver">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

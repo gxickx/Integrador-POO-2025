@@ -40,19 +40,19 @@
 
 <VBox prefHeight="400.0" prefWidth="715.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.InicioController">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="366.0" prefWidth="718.0" VBox.vgrow="NEVER">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="925.0" VBox.vgrow="NEVER">
       <children>
-            <Label layoutX="214.0" layoutY="20.0" text="Gestor de Eventos Culturales">
+            <Label layoutX="331.0" layoutY="57.0" text="Gestor de Eventos Culturales">
                <font>
                   <Font name="Arial" size="19.0" />
                </font>
             </Label>
-            <Label layoutX="161.0" layoutY="56.0" text="Bienvenido, seleccione una de las siguientes secciones para comenzar" />
-            <Label layoutX="205.0" layoutY="377.0" text="Menacho Natalia Agustina &amp; Roko María Guillermina" />
-            <Button fx:id="btnIrEventos" layoutX="267.0" layoutY="122.0" mnemonicParsing="false" onAction="#onClickIrEventos" prefHeight="36.0" prefWidth="156.0" text="Eventos" />
-            <Button fx:id="btnIrPersonas" layoutX="267.0" layoutY="178.0" mnemonicParsing="false" onAction="#onClickIrPersonas" prefHeight="36.0" prefWidth="156.0" text="Personas" />
-            <Button fx:id="btnIrParticipacion" layoutX="267.0" layoutY="230.0" mnemonicParsing="false" onAction="#onClickIrParticipacion" prefHeight="36.0" prefWidth="156.0" text="Participación" />
-            <Button fx:id="btnIrCalendario" layoutX="267.0" layoutY="290.0" mnemonicParsing="false" onAction="#onClickIrCalendario" prefHeight="36.0" prefWidth="156.0" text="Calendario" />
+            <Label layoutX="278.0" layoutY="93.0" text="Bienvenido, seleccione una de las siguientes secciones para comenzar" />
+            <Label layoutX="322.0" layoutY="414.0" text="Menacho Natalia Agustina &amp; Roko María Guillermina" />
+            <Button fx:id="btnIrEventos" layoutX="384.0" layoutY="159.0" mnemonicParsing="false" onAction="#onClickIrEventos" prefHeight="36.0" prefWidth="156.0" text="Eventos" />
+            <Button fx:id="btnIrPersonas" layoutX="384.0" layoutY="215.0" mnemonicParsing="false" onAction="#onClickIrPersonas" prefHeight="36.0" prefWidth="156.0" text="Personas" />
+            <Button fx:id="btnIrParticipacion" layoutX="384.0" layoutY="267.0" mnemonicParsing="false" onAction="#onClickIrParticipacion" prefHeight="36.0" prefWidth="156.0" text="Participación" />
+            <Button fx:id="btnIrCalendario" layoutX="384.0" layoutY="327.0" mnemonicParsing="false" onAction="#onClickIrCalendario" prefHeight="36.0" prefWidth="156.0" text="Calendario" />
       </children>
     </AnchorPane>
   </children>
