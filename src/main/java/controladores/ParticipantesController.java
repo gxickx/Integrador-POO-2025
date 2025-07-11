@@ -1,6 +1,8 @@
 package controladores;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.example.Main;
 
@@ -89,6 +91,8 @@ public class ParticipantesController {
         comboPersona.setDisable(true);
         comboRol.setDisable(true);
         btnConfirmar.setDisable(true);
+        comboVerTipoEvento.setOnAction(this::onSeleccionarTipoEvento);
+
 
         comboEvento.getItems().addAll(servicio.listarEventos());
         comboEvento.valueProperty().addListener((obs, oldVal, newVal) -> {
@@ -231,5 +235,30 @@ public class ParticipantesController {
                 break;
         }
     }
+    }
+
+    @FXML
+    void onSeleccionarTipoEvento(ActionEvent event) {
+        String tipoSeleccionado = comboVerTipoEvento.getValue();
+        if (tipoSeleccionado != null) {
+            List<Participacion> participacionesFiltradas = new ArrayList<>();
+            for (Participacion p : servicio.listarParticipaciones()) {
+                Evento evento = p.getEvento();
+                if (evento != null && evento.getClass().getSimpleName().equalsIgnoreCase(mapearNombreAClase(tipoSeleccionado))) {
+                    participacionesFiltradas.add(p);
+                }
+            }
+
+            tablaPersonas.getItems().setAll(participacionesFiltradas);
+        }
+    }
+
+    private String mapearNombreAClase(String tipo) {
+    return switch (tipo) {
+        case "Ciclo de Cine" -> "CicloCine";
+        default -> tipo;
+    };
 }
+
+
 }
