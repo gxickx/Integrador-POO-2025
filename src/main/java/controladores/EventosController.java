@@ -199,6 +199,25 @@ public class EventosController {
     }
 
     @FXML
+    void onClickCheckTieneCupo(ActionEvent event) {
+        boolean tieneCupo = checkTieneCupo.isSelected();
+            txtCupoMax.setDisable(!tieneCupo); // habilita o deshabilita el campo
+    }
+
+    private int obtenerCupoMaximo() {
+        if (checkTieneCupo.isSelected()) {
+            try {
+                return Integer.parseInt(txtCupoMax.getText());
+            } catch (NumberFormatException e) {
+                mostrarAlerta("Error", "Debe ingresar un cupo válido.");
+            }
+        }
+        return 0;
+    }
+
+
+
+    @FXML
     void onClickAltaEvento(ActionEvent event) {
         var item = tablaEventos.getSelectionModel().getSelectedItem();
         Evento evento = (Evento) item;
@@ -220,14 +239,12 @@ public class EventosController {
                 var tipoEvento = comboTipoEvento.getValue();
                 var requiereInscripcion = checkTieneInscripcion.isSelected();
                 var tieneCupo = checkTieneCupo.isSelected();
-                int cupoMaximo;
-                try {
-                    cupoMaximo = Integer.parseInt(txtCupoMax.getText());
-                } catch (NumberFormatException e) {
-                    mostrarAlerta("Error", "El cupo máximo debe ser un número válido.");
-                    return;
-                }
+
+                onClickCheckTieneCupo(event);
+                int cupoMaximo = obtenerCupoMaximo();
+
                 int duracion = (int) ChronoUnit.DAYS.between(fechaInicioDate, fechaFinDate) + 1;
+
                 //convertir fecha inicio y fecha fin a Date pq el datePicker nos da un tipo de LocalDate, lo que genera errores en las clases
                 Date fechaInicio = Date.from(fechaInicioDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
                 Date fechaFin = Date.from(fechaFinDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -243,8 +260,6 @@ public class EventosController {
                 }
 
                 Evento nuevoEvento = null;
-
-
 
                 switch (tipoEvento) {
                     case "Concierto" -> {
@@ -299,8 +314,10 @@ public class EventosController {
             }
             bloquearBotones();
             limpiar();
+            comboEstadoEvento.setValue(EstadoEvento.PLANIFICACION);
+
         } catch (Exception e) {
-            mostrarAlerta("Error", "Ocurrió un error al registrar el evento.");
+            mostrarAlerta("Error", "Ocurrió un error al dar de alta el evento.");
             throw e;
         }
     }
@@ -331,27 +348,17 @@ public class EventosController {
             limpiar();
         } else if (evento != null) {
             bloquearBotones();
-            /*txtNombreEvento.setText(evento.getNombre());
-            dateInicio.setValue(evento.getFechaInicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-            checkTieneCupo.setSelected(evento.isTieneCupo());
-            txtCupoMax.setText(String.valueOf(evento.getCupoMaximo()));
-            comboEstadoEvento.setValue(evento.getEstado());
-            checkTieneInscripcion.setSelected(evento.isRequiereInscripcion());*/
 
             comboEstadoEvento.setValue(evento.getEstado());
-
-            //desbloquearBotones();
             comboEstadoEvento.setDisable(false);
 
             btnAlta.setDisable(true);
             btnBaja.setDisable(true);
             btnModificacion.setDisable(false);
-            //btnModificacion.setText("Cancelar");
             btnConfirmar.setDisable(false);
             btnModificacion.setText("Cancelar");
         }
     }
-
 
 
     @FXML
@@ -362,9 +369,8 @@ public class EventosController {
     @FXML
     private void cargarDatos(){
         var item = tablaEventos.getSelectionModel().getSelectedItem();
-        Evento evento = (Evento) item;
-        if (evento != null) {
-            txtNombreEvento.setText(evento.getNombre());
+        if ((Evento) item != null) {
+            txtNombreEvento.setText(((Evento) item).getNombre());
 
         }
 
@@ -392,6 +398,7 @@ public class EventosController {
         checkTieneCharlas.setDisable(true);
         checkTieneCupo.setDisable(true);
         checkTieneInscripcion.setDisable(true);
+        txtNombreEvento.setDisable(true);
 
         //campos opcionales
         comboOpcional.setVisible(false);
@@ -414,7 +421,6 @@ public class EventosController {
         txtNombreEvento.setDisable(false);
         dateFin.setDisable(false);
         dateInicio.setDisable(false);
-        //comboEstadoEvento.setDisable(false);
         comboTipoEvento.setDisable(false);
         checkTieneCupo.setDisable(false);
         checkTieneInscripcion.setDisable(false);
@@ -422,7 +428,6 @@ public class EventosController {
         labelCombo.setVisible(true);
         labelTextOpcional.setVisible(true);
         btnConfirmar.setDisable(false);
-        txtCupoMax.setDisable(false);
         btnBaja.setDisable(true);
     }
 
@@ -433,8 +438,15 @@ public class EventosController {
         dateInicio.setValue(null);
         comboEstadoEvento.setValue(null);
         comboOpcional.setValue(null);
-        comboTipoEvento.setValue(null);
         textOpcional.setText("");
+        txtCupoMax.setText("");
+        checkTieneCupo.setSelected(false);
+        txtCupoMax.setDisable(true);
+        checkTieneInscripcion.setSelected(false);
+        checkAlAireLibre.setSelected(false);
+        checkTieneCharlas.setSelected(false);
+
+
 
         tablaEventos.getItems().clear();
         try {
