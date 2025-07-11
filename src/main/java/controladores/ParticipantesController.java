@@ -180,7 +180,8 @@ public class ParticipantesController {
         Persona persona = comboPersona.getValue();
         Evento evento = comboEvento.getValue();
         RolPersona rol = comboRol.getValue();
-        if (btnAlta.getText().equals("Cancelar") && persona != null && evento != null && rol != null) {
+        try{
+            if (btnAlta.getText().equals("Cancelar") && persona != null && evento != null && rol != null) {
             if (evento.getEstado() != EstadoEvento.CONFIRMADO) {
                 Alerta.mostrarAlerta("Error", "Solo se pueden agregar personas a eventos CONFIRMADOS.");
                 limpiar();
@@ -197,6 +198,12 @@ public class ParticipantesController {
         bloquearBotones();
         limpiar();
         comboVerTipoEvento.getSelectionModel().select("Todos los eventos");
+
+        
+
+        } catch (Exception e) {
+            Alerta.error("Error", e.getMessage());
+        }
     }
 
     @FXML
