@@ -1,5 +1,9 @@
 package controladores;
 
+import java.io.IOException;
+
+import org.example.Main;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -99,8 +103,8 @@ public class EventosController {
     }
 
     @FXML
-    void onClickVolverInicio(ActionEvent event) {
-
+    void onClickVolverInicio(ActionEvent event) throws IOException {
+        Main.setRoot("PantallaInicio");
     }
 
 }
