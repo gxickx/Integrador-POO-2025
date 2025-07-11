@@ -2,7 +2,6 @@ package modelos;
 
 import jakarta.persistence.*;
 import java.util.List;
-import modelos.Participacion;
 import java.util.ArrayList;
 
 @Entity
