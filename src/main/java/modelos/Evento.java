@@ -80,6 +80,20 @@ public abstract class Evento {
         return cupoMaximo - participaciones.size();
     }
 
+    public void agregarParticipacion(Participacion participacion) {
+        if (!participaciones.contains(participacion)) {
+            participaciones.add(participacion);
+            participacion.setEvento(this);
+        }
+    }
+
+    public void removerParticipacion(Participacion participacion) {
+        if (participaciones.remove(participacion)) {
+            participacion.setEvento(null);
+        }
+    }
+
+
     public int getDuracion() {
         return duracion;
     }
@@ -100,9 +114,6 @@ public abstract class Evento {
         return cupoMaximo;
     }
 
-    public void setIdEvento(UUID idEvento) {
-        this.idEvento = idEvento;
-    }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -139,6 +150,8 @@ public abstract class Evento {
     public void setBaja() {
         this.baja = true;
     }
+
+
 
     @Override
     public String toString() {

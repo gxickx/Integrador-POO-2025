@@ -50,6 +50,14 @@ public class Participacion {
         return evento;
     }
 
+    public void setEvento(Evento evento) {
+        this.evento = evento;
+    }
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
+
+
     public RolPersona getRol() {
         return rol;
     }

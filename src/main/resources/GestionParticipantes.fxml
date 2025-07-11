@@ -70,24 +70,27 @@
                </font>
             </Button>
             <ComboBox fx:id="comboPersona" layoutX="116.0" layoutY="66.0" prefHeight="26.0" prefWidth="342.0" />
-            <ComboBox fx:id="comboRol" layoutX="116.0" layoutY="100.0" prefHeight="26.0" prefWidth="310.0" />
+            <ComboBox fx:id="comboRol" layoutX="116.0" layoutY="110.0" prefHeight="26.0" prefWidth="310.0" />
             <ComboBox fx:id="comboEvento" layoutX="538.0" layoutY="67.0" prefHeight="26.0" prefWidth="351.0" />
             <Label layoutX="38.0" layoutY="71.0" text="Persona:" />
             <Label layoutX="482.0" layoutY="71.0" text="Evento:" />
-            <Label layoutX="38.0" layoutY="105.0" text="Rol:" />
-            <Button fx:id="btnConfirmar" layoutX="744.0" layoutY="100.0" mnemonicParsing="false" onAction="#onClickAltaPersona" prefHeight="26.0" prefWidth="144.0" text="Confirmar" />
+            <Label layoutX="38.0" layoutY="120.0" text="Rol:" />
+            <Button fx:id="btnConfirmar" layoutX="745.0" layoutY="110.0" mnemonicParsing="false" onAction="#onClickAltaPersona" prefHeight="26.0" prefWidth="144.0" text="Confirmar" />
             <Separator layoutY="146.0" prefHeight="0.0" prefWidth="926.0" />
-            <ComboBox fx:id="comboVerTipoEvento" layoutX="25.0" layoutY="183.0" onAction="#onSeleccionarTipoEvento" prefHeight="26.0" prefWidth="165.0" promptText="Todos los eventos" />
-            <Label layoutX="212.0" layoutY="186.0" text="Vacantes:">
+<ComboBox fx:id="comboVerTipoEvento" layoutX="25.0" layoutY="183.0" onAction="#onSeleccionarTipoEvento"
+          prefHeight="26.0" prefWidth="165.0" promptText="Ver tipo de Evento..." />
+<Label layoutX="212.0" layoutY="186.0" text="Vacantes:">
+    <font>
+        <Font size="14.0" />
+    </font>
+</Label>
+<Label fx:id="labelVacantes" layoutX="287.0" layoutY="186.0" text="----------" />
+
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="labelVacantes" layoutX="287.0" layoutY="186.0" text="----------">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
+            <Label fx:id="lblVacantes" layoutX="538.0" layoutY="100.0" prefHeight="20.0" prefWidth="198.0" />
       </children>
     </AnchorPane>
   </children>

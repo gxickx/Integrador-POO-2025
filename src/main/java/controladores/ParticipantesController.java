@@ -64,7 +64,7 @@ public class ParticipantesController {
     private ComboBox<String> comboVerTipoEvento;
 
     @FXML
-    private Label labelVacantes;
+    private Label lblVacantes;
 
     @FXML
     private TableView<Participacion> tablaPersonas;
@@ -96,7 +96,11 @@ public class ParticipantesController {
         comboVerTipoEvento.setOnAction(this::onSeleccionarTipoEvento);
 
         comboEvento.getItems().addAll(servicio.listarEventos());
-        comboEvento.valueProperty().addListener((obs, oldVal, newVal) -> actualizarRolesPorEvento(newVal));
+
+        comboEvento.valueProperty().addListener((obs, oldVal, newVal) -> {
+        actualizarRolesPorEvento(newVal);
+        actualizarLabelVacantes(newVal);});
+         
 
         tablaPersonas.getSelectionModel().selectedItemProperty().addListener(e -> cargarDatos());
         try {
@@ -106,7 +110,27 @@ public class ParticipantesController {
         }
     }
 
-    void cargarDatos() {
+
+    private void actualizarLabelVacantes(Evento evento) {
+        if (evento == null) {
+            lblVacantes.setVisible(false);
+            return;
+        }
+
+        if (evento.isTieneCupo()) {
+            lblVacantes.setVisible(true);
+            if (evento.getVacantes() > 0) {
+                lblVacantes.setText("* Vacantes disponibles: " + evento.getVacantes());
+            } else {
+                lblVacantes.setText("* No hay vacantes disponibles");
+            }
+        } else {
+            lblVacantes.setVisible(false);
+        }
+    }
+
+    void cargarDatos(){
+
         var item = tablaPersonas.getSelectionModel().getSelectedItem();
         Participacion participacion = (Participacion) item;
         if (participacion != null) {
@@ -159,6 +183,11 @@ public class ParticipantesController {
         if (btnAlta.getText().equals("Cancelar") && persona != null && evento != null && rol != null) {
             if (evento.getEstado() != EstadoEvento.CONFIRMADO) {
                 Alerta.mostrarAlerta("Error", "Solo se pueden agregar personas a eventos CONFIRMADOS.");
+                limpiar();
+                return;
+            }
+            if (evento.isTieneCupo() && evento.getVacantes() <= 0) {
+                Alerta.mostrarAlerta("Error", "No hay vacantes disponibles para este evento.");
                 return;
             }
             Participacion participacion = new Participacion(persona, evento, rol);
