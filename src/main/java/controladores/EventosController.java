@@ -8,7 +8,6 @@ import org.example.Main;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import modelos.Evento;
 import servicio.Servicio;
 import modelos.*;
 
@@ -112,6 +111,9 @@ public class EventosController {
         columnaCupoMax.setCellValueFactory(new PropertyValueFactory<>("cupoMaximo"));
         columnaCuposVacantes.setCellValueFactory(new PropertyValueFactory<>("vacantes"));
 
+        comboEstadoEvento.getItems().setAll(EstadoEvento.values());
+        comboEstadoEvento.setValue(EstadoEvento.PLANIFICACION);
+        
         // Deshabilitar campos específicos y generales hasta que se seleccione evento
         bloquearBotones();
         comboTipoEvento.getItems().addAll("Concierto", "Exposición", "Taller", "Ciclo de Cine", "Feria");
@@ -139,6 +141,10 @@ public class EventosController {
         checkTieneCharlas.setDisable(true);
         labelCombo.setVisible(false);
         labelTextOpcional.setVisible(false);
+
+        if (tipo==null){
+            return;
+        }
 
         switch (tipo) {
             case "Concierto" -> {
@@ -181,12 +187,14 @@ public class EventosController {
     @FXML
     void onClickActivaAltaEvento(ActionEvent event) {
         limpiar();
+        comboEstadoEvento.setValue(EstadoEvento.PLANIFICACION);
         if(btnAlta.getText().equals("Cancelar")){
             bloquearBotones();
         }else{
             desbloquearBotones();
             btnModificacion.setDisable(true);
             btnAlta.setText("Cancelar");
+            comboEstadoEvento.getItems().setAll(EstadoEvento.values());
         }
     }
 
@@ -198,8 +206,9 @@ public class EventosController {
         try {
             // MODIFICACIÓN
             if (item != null && btnModificacion.getText().equals("Cancelar")) {
-                servicio.modificarEvento(evento.getIdEvento(), evento.getNombre(), evento.getFechaInicio(), evento.getDuracion(), evento.getEstado(), evento.getCupoMaximo(), evento.isRequiereInscripcion());
+                servicio.modificarEvento(evento.getIdEvento(), comboEstadoEvento.getValue());
                 btnAlta.setDisable(false);
+                comboEstadoEvento.setDisable(false);
             }
 
             // ALTA
@@ -234,6 +243,8 @@ public class EventosController {
                 }
 
                 Evento nuevoEvento = null;
+
+
 
                 switch (tipoEvento) {
                     case "Concierto" -> {
@@ -296,7 +307,16 @@ public class EventosController {
 
     @FXML
     void onClickBajaEvento(ActionEvent event) {
-
+        var item = tablaEventos.getSelectionModel().getSelectedItem();
+        Evento evento = (Evento)item;
+        if (evento != null) {
+            try {
+                servicio.eliminarEvento(evento.getIdEvento());
+            } catch (Exception e) {
+                throw e;
+            }
+            limpiar();
+        }
     }
 
     @FXML
@@ -310,17 +330,24 @@ public class EventosController {
             btnAlta.setDisable(false);
             limpiar();
         } else if (evento != null) {
-            txtNombreEvento.setText(evento.getNombre());
+            bloquearBotones();
+            /*txtNombreEvento.setText(evento.getNombre());
             dateInicio.setValue(evento.getFechaInicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             checkTieneCupo.setSelected(evento.isTieneCupo());
             txtCupoMax.setText(String.valueOf(evento.getCupoMaximo()));
             comboEstadoEvento.setValue(evento.getEstado());
-            checkTieneInscripcion.setSelected(evento.isRequiereInscripcion());
+            checkTieneInscripcion.setSelected(evento.isRequiereInscripcion());*/
 
-            desbloquearBotones();
+            comboEstadoEvento.setValue(evento.getEstado());
+
+            //desbloquearBotones();
+            comboEstadoEvento.setDisable(false);
 
             btnAlta.setDisable(true);
             btnBaja.setDisable(true);
+            btnModificacion.setDisable(false);
+            //btnModificacion.setText("Cancelar");
+            btnConfirmar.setDisable(false);
             btnModificacion.setText("Cancelar");
         }
     }
@@ -363,6 +390,8 @@ public class EventosController {
         textOpcional.setDisable(true);
         checkAlAireLibre.setDisable(true);
         checkTieneCharlas.setDisable(true);
+        checkTieneCupo.setDisable(true);
+        checkTieneInscripcion.setDisable(true);
 
         //campos opcionales
         comboOpcional.setVisible(false);
@@ -372,8 +401,12 @@ public class EventosController {
         labelCombo.setVisible(false);
         labelTextOpcional.setVisible(false);
 
+        btnModificacion.setDisable(false);
         btnAlta.setText("Alta");
         btnModificacion.setText("Modificación");
+        btnConfirmar.setDisable(true);
+        txtCupoMax.setDisable(true);
+        btnBaja.setDisable(false);
     }
 
     @FXML
@@ -381,11 +414,16 @@ public class EventosController {
         txtNombreEvento.setDisable(false);
         dateFin.setDisable(false);
         dateInicio.setDisable(false);
-        comboEstadoEvento.setDisable(false);
+        //comboEstadoEvento.setDisable(false);
         comboTipoEvento.setDisable(false);
+        checkTieneCupo.setDisable(false);
+        checkTieneInscripcion.setDisable(false);
 
         labelCombo.setVisible(true);
         labelTextOpcional.setVisible(true);
+        btnConfirmar.setDisable(false);
+        txtCupoMax.setDisable(false);
+        btnBaja.setDisable(true);
     }
 
     @FXML
