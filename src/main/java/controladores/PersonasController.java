@@ -1,6 +1,7 @@
 package controladores;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -148,7 +149,7 @@ public class PersonasController {
             bloquearBotones();
         limpiar();
         } catch (Exception e) {
-            Alerta.mostrarAlerta("Atención", "Recuerde rellenar todos los campos e ingresar un correo válido.");
+            Alerta.error("Error", e.getMessage());
         }
     }
 
