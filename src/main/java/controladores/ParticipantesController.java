@@ -34,9 +34,6 @@ public class ParticipantesController {
     private Button btnConfirmar;
 
     @FXML
-    private Button btnModificacion;
-
-    @FXML
     private Button btnVolver;
 
     @FXML
@@ -148,7 +145,6 @@ public class ParticipantesController {
             comboVerTipoEvento.setOnAction(this::onSeleccionarTipoEvento);
         } else {
             desbloquearBotones();
-            btnModificacion.setDisable(true);
             btnAlta.setText("Cancelar");
             comboVerTipoEvento.getSelectionModel().select("Todos los eventos");
         }
@@ -159,7 +155,6 @@ public class ParticipantesController {
         comboPersona.setDisable(true);
         comboRol.setDisable(true);
         btnBaja.setDisable(false);
-        btnModificacion.setDisable(false);
         btnConfirmar.setDisable(true);
         btnAlta.setText("Alta");
         comboVerTipoEvento.setDisable(false);
@@ -172,7 +167,8 @@ public class ParticipantesController {
         btnConfirmar.setDisable(false);
         btnBaja.setDisable(true);
         comboVerTipoEvento.setOnAction(this::onSeleccionarTipoEvento);
-        comboVerTipoEvento.setDisable(true);
+        comboVerTipoEvento.setDisable(true); 
+        //si 
     }
 
     @FXML
@@ -220,19 +216,7 @@ public class ParticipantesController {
         }
     }
 
-    @FXML
-    void onClickModifcarPersona(ActionEvent event) {
-        var persona = tablaPersonas.getSelectionModel().getSelectedItem();
-        if (btnModificacion.getText().equals("Cancelar")) {
-            btnModificacion.setText("Modificación");
-            bloquearBotones();
-            btnAlta.setDisable(false);
-            limpiar();
-        } else if (persona != null) {
-            desbloquearBotones();
-            comboEvento.setDisable(true);
-        }
-    }
+
 
     @FXML
     void onClickVolverInicio(ActionEvent event) throws IOException {
