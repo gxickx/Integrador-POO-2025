@@ -85,7 +85,8 @@ public class ParticipantesController {
 
         comboPersona.getItems().clear();
         comboPersona.getItems().addAll(servicio.listarPersonas());
-        comboRol.getItems().addAll(RolPersona.values());
+        comboRol.getItems().clear();
+        actualizarRolesPorEvento(null);
         comboVerTipoEvento.getItems().addAll("Concierto", "Exposición", "Taller", "Ciclo de Cine", "Feria");
 
         
@@ -100,6 +101,8 @@ public class ParticipantesController {
         servicio.insertarEvento(evento);
 
         comboEvento.getItems().addAll(servicio.listarEventos());
+        comboEvento.valueProperty().addListener((obs, oldVal, newVal) -> {
+        actualizarRolesPorEvento(newVal);});
          
 
         tablaPersonas.getSelectionModel().selectedItemProperty().addListener(e -> cargarDatos());
@@ -169,7 +172,16 @@ public class ParticipantesController {
 
     @FXML
     void onClickBajaPersona(ActionEvent event) {
-
+        var item = tablaPersonas.getSelectionModel().getSelectedItem();
+        Participacion participacion = (Participacion)item;
+        if (participacion != null) {
+            try {
+                servicio.eliminarParticipacion(participacion);
+            } catch (Exception e) {
+                throw e;
+            }
+            limpiar();
+        }
     }
 
     @FXML
@@ -193,11 +205,6 @@ public class ParticipantesController {
         Main.setRoot("PantallaInicio");
     }
 
-    @FXML
-    void OnSelectionfiltrarPorTipoEvento(ActionEvent event) {
-
-    }
-
     private void limpiar() {
         comboEvento.getSelectionModel().clearSelection();
         comboPersona.getSelectionModel().clearSelection();
@@ -211,4 +218,25 @@ public class ParticipantesController {
         }
         tablaPersonas.getSelectionModel().clearSelection();
     }
+
+    private void actualizarRolesPorEvento(Evento evento) {
+    comboRol.getItems().clear();
+    comboRol.getItems().add(RolPersona.ORGANIZADOR);
+    comboRol.getItems().add(RolPersona.PARTICIPANTE);
+
+    if (evento != null) {
+        String clase = evento.getClass().getSimpleName();
+        switch (clase) {
+            case "Concierto":
+                comboRol.getItems().add(RolPersona.ARTISTA);
+                break;
+            case "Taller":
+                comboRol.getItems().add(RolPersona.INSTRUCTOR);
+                break;
+            case "Exposicion":
+                comboRol.getItems().add(RolPersona.CURADOR);
+                break;
+        }
+    }
+}
 }

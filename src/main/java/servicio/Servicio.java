@@ -171,6 +171,7 @@ public class Servicio {
         }
     }
 
+
     public void eliminarEvento(UUID idEvento) {
     try {
         this.persistencia.iniciarTransaccion();
@@ -188,13 +189,22 @@ public class Servicio {
     }
 }
 
-    /*public void listarParticipantes(){
-        return this.persistencia.bus
-    }*/
-    public void insertarParticipacion(Participacion participacion) {
+
+public void insertarParticipacion(Participacion participacion) {
     try {
         this.persistencia.iniciarTransaccion();
-        this.persistencia.insertar(participacion);
+        var existente = this.persistencia.buscar(Participacion.class, participacion.getId());
+        if (existente != null) {
+            if (existente.isBaja()) {
+                existente.setBajaFalse();
+                existente.setRol(participacion.getRol());
+                this.persistencia.modificar(existente);
+            } else {
+                throw new IllegalArgumentException("La persona ya está inscripta en este evento.");
+            }
+        } else {
+            this.persistencia.insertar(participacion);
+        }
         this.persistencia.confirmarTransaccion();
     } catch (Exception e) {
         this.persistencia.descartarTransaccion();
@@ -203,7 +213,28 @@ public class Servicio {
 }
 
     public List<Participacion> listarParticipaciones() {
-        return this.persistencia.buscarTodos(modelos.Participacion.class);
+        var participaciones = this.persistencia.buscarTodos(modelos.Participacion.class);
+        var listado = new ArrayList<Participacion>();
+        for (var participacion : participaciones) {
+            if (participacion.isBaja() == false) {
+                listado.add(participacion);
+            }
+        }
+        return listado;
     }
+
+    public void eliminarParticipacion(Participacion participacion) {
+    try {
+        this.persistencia.iniciarTransaccion();
+        participacion.setBaja();
+        this.persistencia.modificar(participacion);
+        this.persistencia.confirmarTransaccion();
+    } catch (Exception e) {
+        this.persistencia.descartarTransaccion();
+        throw e;
+    }
+    }
+
+
 
 }
