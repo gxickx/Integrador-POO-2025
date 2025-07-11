@@ -1,6 +1,7 @@
 package servicio;
 
 import jakarta.persistence.EntityManager;
+import javafx.scene.control.Alert;
 import modelos.EstadoEvento;
 import persistencia.Persistencia;
 import modelos.Persona;
@@ -247,6 +248,8 @@ public void insertarParticipacion(Participacion participacion) {
         throw e;
     }
     }
+
+
 
 
 

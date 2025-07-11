@@ -17,6 +17,8 @@ import modelos.RolPersona;
 import modelos.Evento;
 import modelos.Participacion;
 import servicio.Servicio;
+import modelos.EstadoEvento;
+import modelos.Alerta;
 
 
 public class ParticipantesController {
@@ -148,11 +150,14 @@ public class ParticipantesController {
         Persona persona = comboPersona.getValue();
         Evento evento = comboEvento.getValue();
         RolPersona rol = comboRol.getValue();
-        if (btnAlta.getText()=="Cancelar" && persona != null && evento != null && rol != null) 
-            {
-                Participacion participacion = new Participacion(persona, evento, rol);
-                servicio.insertarParticipacion(participacion);
+        if (btnAlta.getText()=="Cancelar" && persona != null && evento != null && rol != null) {
+            if (evento.getEstado() != EstadoEvento.CONFIRMADO){
+                Alerta.mostrarAlerta("Error", "Solo se pueden agregar personas a eventos CONFIRMADOS.");
+                return;
             }
+            Participacion participacion = new Participacion(persona, evento, rol);
+            servicio.insertarParticipacion(participacion);
+        }
 
         bloquearBotones();
         limpiar();

@@ -10,12 +10,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import servicio.Servicio;
 import modelos.*;
-
-import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.List;
 
 public class EventosController {
 
@@ -213,7 +210,7 @@ public class EventosController {
             try {
                 return Integer.parseInt(txtCupoMax.getText());
             } catch (NumberFormatException e) {
-                mostrarAlerta("Error", "Debe ingresar un cupo válido.");
+                Alerta.mostrarAlerta("Error", "Debe ingresar un cupo válido.");
             }
         }
         return 0;
@@ -255,12 +252,12 @@ public class EventosController {
                 Date fechaFin = Date.from(fechaFinDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
                 if (nombre.isBlank() ||  estado == null || tipoEvento == null) {
-                    mostrarAlerta("Error", "Debe completar todos los campos obligatorios.");
+                    Alerta.mostrarAlerta("Error", "Debe completar todos los campos obligatorios.");
                     return;
                 }
 
                 if (fechaFinDate.isBefore(fechaInicioDate)) {
-                    mostrarAlerta("Error", "La fecha de fin no puede ser anterior a la de inicio.");
+                    Alerta.mostrarAlerta("Error", "La fecha de fin no puede ser anterior a la de inicio.");
                     return;
                 }
 
@@ -270,7 +267,7 @@ public class EventosController {
                     case "Concierto" -> {
                         TipoEntrada entrada = (TipoEntrada) comboOpcional.getValue();
                         if (entrada == null) {
-                            mostrarAlerta("Error", "Debe seleccionar un tipo de entrada.");
+                            Alerta.mostrarAlerta("Error", "Debe seleccionar un tipo de entrada.");
                             return;
                         }
                         nuevoEvento = new Concierto(nombre, fechaInicio, duracion, estado, requiereInscripcion, tieneCupo, cupoMaximo, entrada);
@@ -278,7 +275,7 @@ public class EventosController {
                     case "Exposición" -> {
                         TipoArte arte = (TipoArte) comboOpcional.getValue();
                         if (arte == null) {
-                            mostrarAlerta("Error", "Debe seleccionar un tipo de arte.");
+                            Alerta.mostrarAlerta("Error", "Debe seleccionar un tipo de arte.");
                             return;
                         }
                         nuevoEvento = new Exposicion(nombre, fechaInicio, duracion, estado, requiereInscripcion, tieneCupo, cupoMaximo, arte);
@@ -286,7 +283,7 @@ public class EventosController {
                     case "Taller" -> {
                         Modalidad modalidad = (Modalidad) comboOpcional.getValue();
                         if (modalidad == null) {
-                            mostrarAlerta("Error", "Debe seleccionar una modalidad.");
+                            Alerta.mostrarAlerta("Error", "Debe seleccionar una modalidad.");
                             return;
                         }
                         nuevoEvento = new Taller(nombre, fechaInicio, duracion, estado, requiereInscripcion, tieneCupo, cupoMaximo, modalidad);
@@ -298,14 +295,14 @@ public class EventosController {
                     case "Feria" -> {
                         String cantTexto = textOpcional.getText();
                         if (cantTexto == null || cantTexto.isBlank()) {
-                            mostrarAlerta("Error", "Debe ingresar la cantidad de stands.");
+                            Alerta.mostrarAlerta("Error", "Debe ingresar la cantidad de stands.");
                             return;
                         }
                         int cantStands;
                         try {
                             cantStands = Integer.parseInt(cantTexto);
                         } catch (NumberFormatException e) {
-                            mostrarAlerta("Error", "La cantidad de stands debe ser un número.");
+                            Alerta.mostrarAlerta("Error", "La cantidad de stands debe ser un número.");
                             return;
                         }
                         boolean alAireLibre = checkAlAireLibre.isSelected();
@@ -321,7 +318,7 @@ public class EventosController {
             limpiar();
 
         } catch (Exception e) {
-            mostrarAlerta("Error", "Ocurrió un error al dar de alta el evento.");
+            Alerta.mostrarAlerta("Error", "Ocurrió un error al dar de alta el evento.");
             throw e;
         }
     }
@@ -380,13 +377,7 @@ public class EventosController {
 
     }
 
-    private void mostrarAlerta(String titulo, String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
-    }
+
 
 
     @FXML
