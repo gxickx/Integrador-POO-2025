@@ -25,6 +25,9 @@ public class Participacion {
     @Column(nullable = false)
     private RolPersona rol;
 
+    @Column(nullable = false)
+    private boolean baja = false;
+
     public Participacion() {}
 
     public Participacion(Persona persona, Evento evento, RolPersona rol) {
@@ -49,6 +52,22 @@ public class Participacion {
 
     public RolPersona getRol() {
         return rol;
+    }
+
+    public void setRol(RolPersona rol){
+        this.rol = rol;
+    }
+
+    public boolean isBaja() {
+    return baja;
+    }
+
+    public void setBaja() {
+        this.baja = true;
+    }
+
+    public void setBajaFalse(){
+        this.baja = false;
     }
 
     // No se si setters sean necesarios, podemos dejar así para hacerlo mas sencillo
