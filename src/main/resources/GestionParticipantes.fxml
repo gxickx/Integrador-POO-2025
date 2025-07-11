@@ -77,7 +77,7 @@
             <Label layoutX="38.0" layoutY="105.0" text="Rol:" />
             <Button fx:id="btnConfirmar" layoutX="744.0" layoutY="100.0" mnemonicParsing="false" onAction="#onClickAltaPersona" prefHeight="26.0" prefWidth="144.0" text="Confirmar" />
             <Separator layoutY="146.0" prefHeight="0.0" prefWidth="926.0" />
-            <ComboBox fx:id="comboVerTipoEvento" layoutX="25.0" layoutY="183.0" prefHeight="26.0" prefWidth="165.0" promptText="Ver tipo de Evento..." />
+            <ComboBox fx:id="comboVerTipoEvento" layoutX="25.0" layoutY="183.0" onAction="#onSeleccionarTipoEvento" prefHeight="26.0" prefWidth="165.0" promptText="Todos los eventos" />
             <Label layoutX="212.0" layoutY="186.0" text="Vacantes:">
                <font>
                   <Font size="14.0" />

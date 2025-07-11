@@ -85,9 +85,9 @@ public class ParticipantesController {
         actualizarRolesPorEvento(null);
 
         comboVerTipoEvento.getItems().clear();
-        comboVerTipoEvento.getItems().add("Ver tipo de evento...");
+        comboVerTipoEvento.getItems().add("Todos los eventos");
         comboVerTipoEvento.getItems().addAll("Concierto", "Exposición", "Taller", "Ciclo de Cine", "Feria");
-        comboVerTipoEvento.getSelectionModel().select("Ver tipo de evento...");
+        comboVerTipoEvento.getSelectionModel().select("Todos los eventos");
 
         comboEvento.setDisable(true);
         comboPersona.setDisable(true);
@@ -126,7 +126,7 @@ public class ParticipantesController {
             desbloquearBotones();
             btnModificacion.setDisable(true);
             btnAlta.setText("Cancelar");
-            comboVerTipoEvento.getSelectionModel().select("Ver tipo de evento...");
+            comboVerTipoEvento.getSelectionModel().select("Todos los eventos");
         }
     }
 
@@ -167,7 +167,7 @@ public class ParticipantesController {
 
         bloquearBotones();
         limpiar();
-        comboVerTipoEvento.getSelectionModel().select("Ver tipo de evento...");
+        comboVerTipoEvento.getSelectionModel().select("Todos los eventos");
     }
 
     @FXML
@@ -207,7 +207,7 @@ public class ParticipantesController {
         comboEvento.getSelectionModel().clearSelection();
         comboPersona.getSelectionModel().clearSelection();
         comboRol.getSelectionModel().clearSelection();
-        comboVerTipoEvento.getSelectionModel().select("Ver tipo de evento...");
+        comboVerTipoEvento.getSelectionModel().select("Todos los eventos");
 
         tablaPersonas.getItems().clear();
         try {
@@ -236,7 +236,7 @@ public class ParticipantesController {
     @FXML
     void onSeleccionarTipoEvento(ActionEvent event) {
         String tipoSeleccionado = comboVerTipoEvento.getValue();
-        if (tipoSeleccionado == null || tipoSeleccionado.equals("Ver tipo de evento...")) {
+        if (tipoSeleccionado == null || tipoSeleccionado.equals("Todos los eventos")) {
             tablaPersonas.getItems().setAll(servicio.listarParticipaciones());
             return;
         }
