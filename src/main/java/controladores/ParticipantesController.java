@@ -172,7 +172,8 @@ public class ParticipantesController {
         btnConfirmar.setDisable(false);
         btnBaja.setDisable(true);
         comboVerTipoEvento.setOnAction(this::onSeleccionarTipoEvento);
-        comboVerTipoEvento.setDisable(true);
+        comboVerTipoEvento.setDisable(true); 
+        //si 
     }
 
     @FXML
