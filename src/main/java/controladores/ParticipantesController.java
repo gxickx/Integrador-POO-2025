@@ -250,7 +250,7 @@ public class ParticipantesController {
 
     private String mapearNombreAClase(String tipo) {
     return switch (tipo) {
-        case "Ciclo de Cine" -> "CicloDeCine";
+        case "Ciclo de Cine" -> "CicloCine";
         default -> tipo;
     };
 }
