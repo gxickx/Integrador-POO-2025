@@ -8,6 +8,7 @@ import modelos.Evento;
 import modelos.EstadoEvento;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -104,6 +105,28 @@ public class Servicio {
             return this.persistencia.buscarTodos(Evento.class);
         } catch (Exception e) {
             throw new RuntimeException("No se pudieron listar los eventos", e);
+        }
+    }
+
+    public void modificarEvento(UUID id, String nombre, Date fechaInicio, int duracion, EstadoEvento estado, int cupoMax, boolean inscripcion){
+        try{
+            this.persistencia.iniciarTransaccion();
+            var evento = this.persistencia.buscar(Evento.class, id);
+            if(evento!=null){
+                evento.setNombre(nombre);
+                evento.setFechaInicio(fechaInicio);
+                evento.setDuracion(duracion);
+                evento.setEstado(estado);
+                evento.setCupoMaximo(cupoMax);
+                evento.setRequiereInscripcion(inscripcion);
+                this.persistencia.modificar(evento);
+                this.persistencia.confirmarTransaccion();
+            } else {
+                this.persistencia.descartarTransaccion();
+            }
+        } catch (Exception e) {
+            this.persistencia.descartarTransaccion();
+            throw e;
         }
     }
 

@@ -97,5 +97,36 @@ public abstract class Evento {
         return cupoMaximo;
     }
 
+    public void setIdEvento(UUID idEvento) {
+        this.idEvento = idEvento;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public void setDuracion(int duracion) {
+        this.duracion = duracion;
+    }
+
+    public void setEstado(EstadoEvento estado) {
+        this.estado = estado;
+    }
+
+    public void setRequiereInscripcion(boolean requiereInscripcion) {
+        this.requiereInscripcion = requiereInscripcion;
+    }
+
+    public void setTieneCupo(boolean tieneCupo) {
+        this.tieneCupo = tieneCupo;
+    }
+
+    public void setCupoMaximo(int cupoMaximo) {
+        this.cupoMaximo = cupoMaximo;
+    }
 
 }

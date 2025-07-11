@@ -12,6 +12,9 @@ import modelos.Evento;
 import servicio.Servicio;
 import modelos.*;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 
@@ -65,6 +68,9 @@ public class EventosController {
     private CheckBox checkTieneCharlas;      // para CicloCine
     @FXML
     private CheckBox checkTieneInscripcion;
+    @FXML
+    private CheckBox checkTieneCupo;
+
 
     @FXML
     private ComboBox<String> comboTipoEvento;
@@ -89,6 +95,8 @@ public class EventosController {
 
     @FXML
     private TextField txtNombreEvento;
+    @FXML
+    private TextField txtCupoMax;
 
     private Servicio servicio;
 
@@ -173,10 +181,9 @@ public class EventosController {
     @FXML
     void onClickActivaAltaEvento(ActionEvent event) {
         limpiar();
-        if(btnAlta.getText()=="Cancelar"){
+        if(btnAlta.getText().equals("Cancelar")){
             bloquearBotones();
-        }
-        else{
+        }else{
             desbloquearBotones();
             btnModificacion.setDisable(true);
             btnAlta.setText("Cancelar");
@@ -185,7 +192,106 @@ public class EventosController {
 
     @FXML
     void onClickAltaEvento(ActionEvent event) {
+        var item = tablaEventos.getSelectionModel().getSelectedItem();
+        Evento evento = (Evento) item;
 
+        try {
+            // MODIFICACIÓN
+            if (item != null && btnModificacion.getText().equals("Cancelar")) {
+                servicio.modificarEvento(evento.getIdEvento(), evento.getNombre(), evento.getFechaInicio(), evento.getDuracion(), evento.getEstado(), evento.getCupoMaximo(), evento.isRequiereInscripcion());
+                btnAlta.setDisable(false);
+            }
+
+            // ALTA
+            if (btnAlta.getText().equals("Cancelar")) {
+                String nombre = txtNombreEvento.getText();
+                var fechaInicioDate = dateInicio.getValue();
+                var fechaFinDate = dateFin.getValue();
+                var estado = comboEstadoEvento.getValue();
+                var tipoEvento = comboTipoEvento.getValue();
+                var requiereInscripcion = checkTieneInscripcion.isSelected();
+                var tieneCupo = checkTieneCupo.isSelected();
+                int cupoMaximo;
+                try {
+                    cupoMaximo = Integer.parseInt(txtCupoMax.getText());
+                } catch (NumberFormatException e) {
+                    mostrarAlerta("Error", "El cupo máximo debe ser un número válido.");
+                    return;
+                }
+                int duracion = (int) ChronoUnit.DAYS.between(fechaInicioDate, fechaFinDate) + 1;
+                //convertir fecha inicio y fecha fin a Date pq el datePicker nos da un tipo de LocalDate, lo que genera errores en las clases
+                Date fechaInicio = Date.from(fechaInicioDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                Date fechaFin = Date.from(fechaFinDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+                if (nombre.isBlank() ||  estado == null || tipoEvento == null) {
+                    mostrarAlerta("Error", "Debe completar todos los campos obligatorios.");
+                    return;
+                }
+
+                if (fechaFinDate.isBefore(fechaInicioDate)) {
+                    mostrarAlerta("Error", "La fecha de fin no puede ser anterior a la de inicio.");
+                    return;
+                }
+
+                Evento nuevoEvento = null;
+
+                switch (tipoEvento) {
+                    case "Concierto" -> {
+                        TipoEntrada entrada = (TipoEntrada) comboOpcional.getValue();
+                        if (entrada == null) {
+                            mostrarAlerta("Error", "Debe seleccionar un tipo de entrada.");
+                            return;
+                        }
+                        nuevoEvento = new Concierto(nombre, fechaInicio, duracion, estado, requiereInscripcion, tieneCupo, cupoMaximo, entrada);
+                    }
+                    case "Exposición" -> {
+                        TipoArte arte = (TipoArte) comboOpcional.getValue();
+                        if (arte == null) {
+                            mostrarAlerta("Error", "Debe seleccionar un tipo de arte.");
+                            return;
+                        }
+                        nuevoEvento = new Exposicion(nombre, fechaInicio, duracion, estado, requiereInscripcion, tieneCupo, cupoMaximo, arte);
+                    }
+                    case "Taller" -> {
+                        Modalidad modalidad = (Modalidad) comboOpcional.getValue();
+                        if (modalidad == null) {
+                            mostrarAlerta("Error", "Debe seleccionar una modalidad.");
+                            return;
+                        }
+                        nuevoEvento = new Taller(nombre, fechaInicio, duracion, estado, requiereInscripcion, tieneCupo, cupoMaximo, modalidad);
+                    }
+                    case "Ciclo de Cine" -> {
+                        boolean tieneCharlas = checkTieneCharlas.isSelected();
+                        nuevoEvento = new CicloCine(nombre, fechaInicio, duracion, estado, requiereInscripcion, tieneCupo, cupoMaximo, tieneCharlas);
+                    }
+                    case "Feria" -> {
+                        String cantTexto = textOpcional.getText();
+                        if (cantTexto == null || cantTexto.isBlank()) {
+                            mostrarAlerta("Error", "Debe ingresar la cantidad de stands.");
+                            return;
+                        }
+                        int cantStands;
+                        try {
+                            cantStands = Integer.parseInt(cantTexto);
+                        } catch (NumberFormatException e) {
+                            mostrarAlerta("Error", "La cantidad de stands debe ser un número.");
+                            return;
+                        }
+                        boolean alAireLibre = checkAlAireLibre.isSelected();
+                        nuevoEvento = new Feria(nombre, fechaInicio, duracion, estado, requiereInscripcion, tieneCupo, cupoMaximo, cantStands, alAireLibre);
+                    }
+                }
+
+                if (nuevoEvento != null) {
+                    servicio.insertarEvento(nuevoEvento);
+                }
+            }
+            bloquearBotones();
+            limpiar();
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Ocurrió un error al registrar el evento.");
+            throw e;
+        }
     }
 
     @FXML
@@ -194,9 +300,32 @@ public class EventosController {
     }
 
     @FXML
-    void onClickModifcarEvento(ActionEvent event) {
+    void onClickModificarEvento(ActionEvent event) {
+        var item = tablaEventos.getSelectionModel().getSelectedItem();
+        Evento evento = (Evento) item;
 
+        if (btnModificacion.getText().equals("Cancelar")) {
+            btnModificacion.setText("Modificación");
+            bloquearBotones();
+            btnAlta.setDisable(false);
+            limpiar();
+        } else if (evento != null) {
+            txtNombreEvento.setText(evento.getNombre());
+            dateInicio.setValue(evento.getFechaInicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            checkTieneCupo.setSelected(evento.isTieneCupo());
+            txtCupoMax.setText(String.valueOf(evento.getCupoMaximo()));
+            comboEstadoEvento.setValue(evento.getEstado());
+            checkTieneInscripcion.setSelected(evento.isRequiereInscripcion());
+
+            desbloquearBotones();
+
+            btnAlta.setDisable(true);
+            btnBaja.setDisable(true);
+            btnModificacion.setText("Cancelar");
+        }
     }
+
+
 
     @FXML
     void onClickVolverInicio(ActionEvent event) throws IOException {
@@ -213,6 +342,15 @@ public class EventosController {
         }
 
     }
+
+    private void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+
 
     @FXML
     public void bloquearBotones() {
