@@ -94,8 +94,8 @@
             <CheckBox fx:id="checkAlAireLibre" layoutX="540.0" layoutY="220.0" mnemonicParsing="false" text="Al aire libre" />
             <CheckBox fx:id="checkTieneCharlas" layoutX="535.0" layoutY="154.0" mnemonicParsing="false" text="Tiene charlas" />
             <CheckBox fx:id="checkTieneInscripcion" layoutX="28.0" layoutY="192.0" mnemonicParsing="false" text="Con inscripción" />
-            <CheckBox layoutX="28.0" layoutY="220.0" mnemonicParsing="false" text="Tiene cupo" />
-            <TextField fx:id="txtCupoMax" layoutX="165.0" layoutY="215.0" prefHeight="30.0" prefWidth="84.0" text="Cupo max" />
+            <CheckBox fx:id="checkTieneCupo" layoutX="28.0" layoutY="220.0" mnemonicParsing="false" text="Tiene cupo" />
+            <TextField fx:id="txtCupoMax" layoutX="165.0" layoutY="215.0" prefHeight="30.0" prefWidth="84.0" promptText="Cupo max" />
             <Label layoutX="148.0" layoutY="220.0" />
       </children>
     </AnchorPane>

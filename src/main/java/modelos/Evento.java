@@ -35,6 +35,9 @@ public abstract class Evento {
     @Column(nullable = false)
     private int cupoMaximo;
 
+    @Column(nullable = false)
+    private boolean baja = false;
+
     @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Participacion> participaciones = new ArrayList<>();
 
@@ -127,6 +130,19 @@ public abstract class Evento {
 
     public void setCupoMaximo(int cupoMaximo) {
         this.cupoMaximo = cupoMaximo;
+    }
+
+    public boolean isBaja() {
+        return baja;
+    }
+
+    public void setBaja() {
+        this.baja = true;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s", nombre);
     }
 
 }

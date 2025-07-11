@@ -103,12 +103,20 @@ public class Servicio {
 
     public List<Evento> listarEventos() {
         try{
-            return this.persistencia.buscarTodos(Evento.class);
+            var eventos = this.persistencia.buscarTodos(Evento.class);
+            var listado = new ArrayList<Evento>();
+            for (var evento : eventos) {
+                if (evento.isBaja() == false) {
+                    listado.add(evento);
+                }
+            }
+        return listado;
         } catch (Exception e) {
             throw new RuntimeException("No se pudieron listar los eventos", e);
         }
-    }
 
+    }
+    /* 
     public void modificarEvento(UUID id, String nombre, Date fechaInicio, int duracion, EstadoEvento estado, int cupoMax, boolean inscripcion){
         try{
             this.persistencia.iniciarTransaccion();
@@ -120,6 +128,23 @@ public class Servicio {
                 evento.setEstado(estado);
                 evento.setCupoMaximo(cupoMax);
                 evento.setRequiereInscripcion(inscripcion);
+                this.persistencia.modificar(evento);
+                this.persistencia.confirmarTransaccion();
+            } else {
+                this.persistencia.descartarTransaccion();
+            }
+        } catch (Exception e) {
+            this.persistencia.descartarTransaccion();
+            throw e;
+        }
+    }*/
+
+    public void modificarEvento(UUID idEvento, EstadoEvento unEstado){
+        try{
+            this.persistencia.iniciarTransaccion();
+            Evento evento = this.persistencia.buscar(Evento.class, idEvento);
+            if(evento!=null){
+                evento.setEstado(unEstado);
                 this.persistencia.modificar(evento);
                 this.persistencia.confirmarTransaccion();
             } else {
@@ -145,6 +170,23 @@ public class Servicio {
             throw e;
         }
     }
+
+    public void eliminarEvento(UUID idEvento) {
+    try {
+        this.persistencia.iniciarTransaccion();
+        var evento = this.persistencia.buscar(Evento.class, idEvento);
+        if (evento != null && !evento.isBaja()) {
+            evento.setBaja();
+            this.persistencia.modificar(evento);
+            this.persistencia.confirmarTransaccion();
+        } else {
+            this.persistencia.descartarTransaccion();
+        }
+    } catch (Exception e) {
+        this.persistencia.descartarTransaccion();
+        throw e;
+    }
+}
 
     /*public void listarParticipantes(){
         return this.persistencia.bus
