@@ -79,18 +79,12 @@
             <Separator layoutY="146.0" prefHeight="0.0" prefWidth="926.0" />
 <ComboBox fx:id="comboVerTipoEvento" layoutX="25.0" layoutY="183.0" onAction="#onSeleccionarTipoEvento"
           prefHeight="26.0" prefWidth="165.0" promptText="Ver tipo de Evento..." />
-<Label layoutX="212.0" layoutY="186.0" text="Vacantes:">
-    <font>
-        <Font size="14.0" />
-    </font>
-</Label>
-<Label fx:id="labelVacantes" layoutX="287.0" layoutY="186.0" text="----------" />
-
-               <font>
+          <Label fx:id="labelVacantes" layoutX="287.0" layoutY="186.0">
+              <font>
                   <Font size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="lblVacantes" layoutX="538.0" layoutY="100.0" prefHeight="20.0" prefWidth="198.0" />
+              </font>
+          </Label>
+          <Label fx:id="lblVacantes" layoutX="538.0" layoutY="100.0" prefHeight="20.0" prefWidth="198.0" />
       </children>
     </AnchorPane>
   </children>
