@@ -8,6 +8,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import modelos.Persona;
 import servicio.Servicio;
+
+import java.io.IOException;
+
 import org.example.Main;
 
 public class PersonasController {
@@ -216,8 +219,8 @@ public class PersonasController {
         }
 
     @FXML
-    void onClickVolverInicio(ActionEvent event) {
-
+    void onClickVolverInicio(ActionEvent event) throws IOException {
+        Main.setRoot("PantallaInicio");
     }
 }
 

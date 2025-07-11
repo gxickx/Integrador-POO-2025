@@ -4,6 +4,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
+import java.io.IOException;
+
+import org.example.Main;
+
+
 public class InicioController {
 
     @FXML
@@ -19,23 +24,23 @@ public class InicioController {
     private Button btnIrPersonas;
 
     @FXML
-    void onClickIrCalendario(ActionEvent event) {
+    private void onClickIrCalendario(ActionEvent event) throws IOException {
 
     }
 
     @FXML
-    void onClickIrEventos(ActionEvent event) {
+    private void onClickIrEventos(ActionEvent event) throws IOException {
+        Main.setRoot("GestionEventos");
+    }
+
+    @FXML
+    private void onClickIrParticipacion(ActionEvent event) throws IOException {
 
     }
 
     @FXML
-    void onClickIrParticipacion(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onClickIrPersonas(ActionEvent event) {
-
+    private void onClickIrPersonas(ActionEvent event) throws IOException {
+        Main.setRoot("GestionPersonas");
     }
 
 }

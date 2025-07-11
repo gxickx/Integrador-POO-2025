@@ -39,7 +39,7 @@ public class Main extends Application{
         servicio = new Servicio(new Persistencia(emf));
 
         // carga la escena principal
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/GestionPersonas.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/PantallaInicio.fxml"));
         scene = new Scene(fxmlLoader.load(), 640, 480);
         stage.setScene(scene);
         stage.show();
@@ -49,11 +49,9 @@ public class Main extends Application{
         return servicio;
     }
 
-    // carga un archivo FXML
-    // retorna el FXMLLoader para poder acceder a los controladores
-    // ver por ejemplo: void editar(ActionEvent event) en PedidosController.java
+
     public static FXMLLoader setRoot(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxml + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/" + fxml + ".fxml"));
         scene.setRoot(fxmlLoader.load());
         return fxmlLoader;
     }
