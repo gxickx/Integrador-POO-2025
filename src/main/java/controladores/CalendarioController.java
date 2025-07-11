@@ -26,6 +26,9 @@ import org.example.Main;
 
 public class CalendarioController {
     @FXML
+    private Button btnIrEventos;
+
+    @FXML
     private Button btnMesAnterior;
 
     @FXML
@@ -127,7 +130,7 @@ public class CalendarioController {
             mesActual = 12;
             anioActual--;
         }
-    mostrarCalendarioDelMes(anioActual, mesActual);
+        mostrarCalendarioDelMes(anioActual, mesActual);
     }
 
 
@@ -158,6 +161,11 @@ public class CalendarioController {
     @FXML
     void onClickVolverInicio(ActionEvent event) throws IOException {
         Main.setRoot("PantallaInicio");
+    }
+
+    @FXML
+    void onClickIrEventos(ActionEvent event) throws IOException {
+        Main.setRoot("GestionEventos");
     }
 }
 

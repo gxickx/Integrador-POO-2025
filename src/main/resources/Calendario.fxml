@@ -45,6 +45,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
+            <Button fx:id="btnIrEventos" layoutX="108.0" layoutY="578.0" mnemonicParsing="false" onAction="#onClickIrEventos" prefHeight="26.0" prefWidth="124.0" text="Gestión de Eventos" />
       </children>
     </AnchorPane>
   </children>

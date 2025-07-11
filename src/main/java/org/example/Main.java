@@ -11,23 +11,6 @@ import persistencia.Persistencia;
 import servicio.Servicio;
 
 public class Main extends Application{
-/*   public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("integradorPOO2025");
-        Persistencia persistencia = new Persistencia(emf);
-
-        try {
-            persistencia.iniciarTransaccion();
-            Persona persona = new Persona("Lionel", "Messi", "messireal@mail.com", "10101010", "5450500");
-            persistencia.insertar(persona);
-            persistencia.confirmarTransaccion();
-            System.out.println("Persona insertada correctamente.");
-        } catch (Exception e) {
-            persistencia.descartarTransaccion();
-            e.printStackTrace();
-        }
-    }*/
-
-
     private static Scene scene;
     private static Servicio servicio;
 
