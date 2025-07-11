@@ -1,7 +1,6 @@
 package modelos;
 import jakarta.persistence.*;
-import java.util.UUID;
-import modelos.Persona;
+
 
 //aca va la clase entidad
 @Entity

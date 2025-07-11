@@ -1,23 +1,18 @@
 package servicio;
 
-import jakarta.persistence.EntityManager;
-import javafx.scene.control.Alert;
 import modelos.EstadoEvento;
 import persistencia.Persistencia;
 import modelos.Persona;
 import modelos.Evento;
 import modelos.Participacion;
-import modelos.EstadoEvento;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 
 public class Servicio {
     private Persistencia persistencia;
-    private EntityManager em;
 
     public Servicio(Persistencia p) {
         this.persistencia = p;
