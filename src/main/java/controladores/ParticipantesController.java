@@ -179,6 +179,10 @@ public class ParticipantesController {
                 limpiar();
                 return;
             }
+            if (evento.isTieneCupo() && evento.getVacantes() <= 0) {
+                Alerta.mostrarAlerta("Error", "No hay vacantes disponibles para este evento.");
+                return;
+            }
             Participacion participacion = new Participacion(persona, evento, rol);
             servicio.insertarParticipacion(participacion);
         }
