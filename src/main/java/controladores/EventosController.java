@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import modelos.Evento;
 import servicio.Servicio;
 import modelos.*;
+
+import java.util.Date;
 import java.util.List;
 
 public class EventosController {
@@ -31,19 +33,19 @@ public class EventosController {
     private Button btnVolver;
 
     @FXML
-    private TableColumn<?, ?> columnaCupoMax;
+    private TableColumn<Evento, ?> columnaCupoMax;
 
     @FXML
     private TableColumn<?, ?> columnaCuposVacantes;
 
     @FXML
-    private TableColumn<?, ?> columnaDuracion;
+    private TableColumn<Evento, ?> columnaDuracion;
 
     @FXML
     private TableColumn<?, ?> columnaEstado;
 
     @FXML
-    private TableColumn<?, ?> columnaFechaInicio;
+    private TableColumn<Evento, Date> columnaFechaInicio;
 
     @FXML
     private TableColumn<?, ?> columnaID;
@@ -52,7 +54,7 @@ public class EventosController {
     private TableColumn<?, ?> columnaNombre;
 
     @FXML
-    private ComboBox<?> comboEstadoEvento;
+    private ComboBox<EstadoEvento> comboEstadoEvento;
 
     @FXML
     private ComboBox<Enum<?>> comboOpcional; //tipoArte, modalidad, tipoEntrada
@@ -61,6 +63,8 @@ public class EventosController {
     private CheckBox checkAlAireLibre;       // para Feria
     @FXML
     private CheckBox checkTieneCharlas;      // para CicloCine
+    @FXML
+    private CheckBox checkTieneInscripcion;
 
     @FXML
     private ComboBox<String> comboTipoEvento;
