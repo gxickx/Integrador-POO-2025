@@ -15,6 +15,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 public class EventosController {
+    @FXML
+    private Button btnIrCalendario;
 
     @FXML
     private Button btnAlta;
@@ -365,6 +367,11 @@ public class EventosController {
     @FXML
     void onClickVolverInicio(ActionEvent event) throws IOException {
         Main.setRoot("PantallaInicio");
+    }
+
+    @FXML
+    private void onClickIrCalendario(ActionEvent event) throws IOException {
+        Main.setRoot("Calendario");
     }
 
     @FXML
