@@ -230,15 +230,20 @@ public void insertarParticipacion(Participacion participacion) {
 }
 
     public List<Participacion> listarParticipaciones() {
-        var participaciones = this.persistencia.buscarTodos(modelos.Participacion.class);
+        var participaciones = this.persistencia.buscarTodos(Participacion.class);
         var listado = new ArrayList<Participacion>();
         for (var participacion : participaciones) {
-            if (participacion.isBaja() == false) {
+            if (!participacion.isBaja()
+                && participacion.getEvento() != null
+                && !participacion.getEvento().isBaja()
+                && participacion.getPersona() != null
+                && !participacion.getPersona().isBaja()) {
                 listado.add(participacion);
             }
         }
         return listado;
     }
+
 
     public void eliminarParticipacion(Participacion participacion) {
     try {

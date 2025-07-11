@@ -22,7 +22,6 @@ import servicio.Servicio;
 import modelos.EstadoEvento;
 import modelos.Alerta;
 
-
 public class ParticipantesController {
 
     @FXML
@@ -84,17 +83,20 @@ public class ParticipantesController {
         comboPersona.getItems().addAll(servicio.listarPersonas());
         comboRol.getItems().clear();
         actualizarRolesPorEvento(null);
-        comboVerTipoEvento.getItems().addAll("Concierto", "Exposición", "Taller", "Ciclo de Cine", "Feria");
 
-        
+        comboVerTipoEvento.getItems().clear();
+        comboVerTipoEvento.getItems().add("Todos los eventos");
+        comboVerTipoEvento.getItems().addAll("Concierto", "Exposición", "Taller", "Ciclo de Cine", "Feria");
+        comboVerTipoEvento.getSelectionModel().select("Todos los eventos");
+
         comboEvento.setDisable(true);
         comboPersona.setDisable(true);
         comboRol.setDisable(true);
         btnConfirmar.setDisable(true);
         comboVerTipoEvento.setOnAction(this::onSeleccionarTipoEvento);
 
-
         comboEvento.getItems().addAll(servicio.listarEventos());
+
         comboEvento.valueProperty().addListener((obs, oldVal, newVal) -> {
         actualizarRolesPorEvento(newVal);
         actualizarLabelVacantes(newVal);});
@@ -105,8 +107,9 @@ public class ParticipantesController {
             tablaPersonas.getItems().addAll(servicio.listarParticipaciones());
         } catch (Exception e) {
             throw e;
-        }  
+        }
     }
+
 
     private void actualizarLabelVacantes(Evento evento) {
         if (evento == null) {
@@ -127,30 +130,31 @@ public class ParticipantesController {
     }
 
     void cargarDatos(){
+
         var item = tablaPersonas.getSelectionModel().getSelectedItem();
-        Participacion participacion = (Participacion)item;
+        Participacion participacion = (Participacion) item;
         if (participacion != null) {
-                comboEvento.setValue(participacion.getEvento());
-                comboPersona.setValue(participacion.getPersona());
-                comboRol.setValue(participacion.getRol());
+            comboEvento.setValue(participacion.getEvento());
+            comboPersona.setValue(participacion.getPersona());
+            comboRol.setValue(participacion.getRol());
         }
     }
 
     @FXML
     void onClickActivaAltaPersona(ActionEvent event) {
         limpiar();
-        if(btnAlta.getText()=="Cancelar"){
+        if (btnAlta.getText().equals("Cancelar")) {
             bloquearBotones();
-        }
-        else{
+            comboVerTipoEvento.setOnAction(this::onSeleccionarTipoEvento);
+        } else {
             desbloquearBotones();
             btnModificacion.setDisable(true);
             btnAlta.setText("Cancelar");
-
+            comboVerTipoEvento.getSelectionModel().select("Todos los eventos");
         }
     }
 
-    public void bloquearBotones(){
+    public void bloquearBotones() {
         comboEvento.setDisable(true);
         comboPersona.setDisable(true);
         comboRol.setDisable(true);
@@ -158,14 +162,17 @@ public class ParticipantesController {
         btnModificacion.setDisable(false);
         btnConfirmar.setDisable(true);
         btnAlta.setText("Alta");
+        comboVerTipoEvento.setDisable(false);
     }
 
-    public void desbloquearBotones(){
+    public void desbloquearBotones() {
         comboEvento.setDisable(false);
         comboPersona.setDisable(false);
         comboRol.setDisable(false);
         btnConfirmar.setDisable(false);
         btnBaja.setDisable(true);
+        comboVerTipoEvento.setOnAction(this::onSeleccionarTipoEvento);
+        comboVerTipoEvento.setDisable(true);
     }
 
     @FXML
@@ -173,8 +180,8 @@ public class ParticipantesController {
         Persona persona = comboPersona.getValue();
         Evento evento = comboEvento.getValue();
         RolPersona rol = comboRol.getValue();
-        if (btnAlta.getText()=="Cancelar" && persona != null && evento != null && rol != null) {
-            if (evento.getEstado() != EstadoEvento.CONFIRMADO){
+        if (btnAlta.getText().equals("Cancelar") && persona != null && evento != null && rol != null) {
+            if (evento.getEstado() != EstadoEvento.CONFIRMADO) {
                 Alerta.mostrarAlerta("Error", "Solo se pueden agregar personas a eventos CONFIRMADOS.");
                 limpiar();
                 return;
@@ -189,12 +196,13 @@ public class ParticipantesController {
 
         bloquearBotones();
         limpiar();
+        comboVerTipoEvento.getSelectionModel().select("Todos los eventos");
     }
 
     @FXML
     void onClickBajaPersona(ActionEvent event) {
         var item = tablaPersonas.getSelectionModel().getSelectedItem();
-        Participacion participacion = (Participacion)item;
+        Participacion participacion = (Participacion) item;
         if (participacion != null) {
             try {
                 servicio.eliminarParticipacion(participacion);
@@ -208,17 +216,15 @@ public class ParticipantesController {
     @FXML
     void onClickModifcarPersona(ActionEvent event) {
         var persona = tablaPersonas.getSelectionModel().getSelectedItem();
-         if(btnModificacion.getText()=="Cancelar"){
+        if (btnModificacion.getText().equals("Cancelar")) {
             btnModificacion.setText("Modificación");
             bloquearBotones();
             btnAlta.setDisable(false);
             limpiar();
-        }
-        else if (persona != null) {
+        } else if (persona != null) {
             desbloquearBotones();
             comboEvento.setDisable(true);
         }
-
     }
 
     @FXML
@@ -230,6 +236,7 @@ public class ParticipantesController {
         comboEvento.getSelectionModel().clearSelection();
         comboPersona.getSelectionModel().clearSelection();
         comboRol.getSelectionModel().clearSelection();
+        comboVerTipoEvento.getSelectionModel().select("Todos los eventos");
 
         tablaPersonas.getItems().clear();
         try {
@@ -241,48 +248,43 @@ public class ParticipantesController {
     }
 
     private void actualizarRolesPorEvento(Evento evento) {
-    comboRol.getItems().clear();
-    comboRol.getItems().add(RolPersona.ORGANIZADOR);
-    comboRol.getItems().add(RolPersona.PARTICIPANTE);
+        comboRol.getItems().clear();
+        comboRol.getItems().add(RolPersona.ORGANIZADOR);
+        comboRol.getItems().add(RolPersona.PARTICIPANTE);
 
-    if (evento != null) {
-        String clase = evento.getClass().getSimpleName();
-        switch (clase) {
-            case "Concierto":
-                comboRol.getItems().add(RolPersona.ARTISTA);
-                break;
-            case "Taller":
-                comboRol.getItems().add(RolPersona.INSTRUCTOR);
-                break;
-            case "Exposicion":
-                comboRol.getItems().add(RolPersona.CURADOR);
-                break;
+        if (evento != null) {
+            String clase = evento.getClass().getSimpleName();
+            switch (clase) {
+                case "Concierto" -> comboRol.getItems().add(RolPersona.ARTISTA);
+                case "Taller" -> comboRol.getItems().add(RolPersona.INSTRUCTOR);
+                case "Exposicion" -> comboRol.getItems().add(RolPersona.CURADOR);
+            }
         }
-    }
     }
 
     @FXML
     void onSeleccionarTipoEvento(ActionEvent event) {
         String tipoSeleccionado = comboVerTipoEvento.getValue();
-        if (tipoSeleccionado != null) {
-            List<Participacion> participacionesFiltradas = new ArrayList<>();
-            for (Participacion p : servicio.listarParticipaciones()) {
-                Evento evento = p.getEvento();
-                if (evento != null && evento.getClass().getSimpleName().equalsIgnoreCase(mapearNombreAClase(tipoSeleccionado))) {
-                    participacionesFiltradas.add(p);
-                }
-            }
-
-            tablaPersonas.getItems().setAll(participacionesFiltradas);
+        if (tipoSeleccionado == null || tipoSeleccionado.equals("Todos los eventos")) {
+            tablaPersonas.getItems().setAll(servicio.listarParticipaciones());
+            return;
         }
+
+        List<Participacion> participacionesFiltradas = new ArrayList<>();
+        for (Participacion p : servicio.listarParticipaciones()) {
+            Evento evento = p.getEvento();
+            if (evento != null && evento.getClass().getSimpleName().equalsIgnoreCase(mapearNombreAClase(tipoSeleccionado))) {
+                participacionesFiltradas.add(p);
+            }
+        }
+        tablaPersonas.getItems().setAll(participacionesFiltradas);
     }
 
     private String mapearNombreAClase(String tipo) {
-    return switch (tipo) {
-        case "Ciclo de Cine" -> "CicloCine";
-        default -> tipo;
-    };
-}
-
-
+        return switch (tipo) {
+            case "Ciclo de Cine" -> "CicloCine";
+            case "Exposición" -> "Exposicion";
+            default -> tipo;
+        };
+    }
 }

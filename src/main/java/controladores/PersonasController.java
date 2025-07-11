@@ -1,11 +1,13 @@
 package controladores;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import modelos.Alerta;
 import modelos.Persona;
 import servicio.Servicio;
 
@@ -86,7 +88,7 @@ public class PersonasController {
         try {
             tablaPersonas.getItems().addAll(servicio.listarPersonas());
         } catch (Exception e) {
-            throw e;
+            Alerta.error("Error", "Hubo un error al listar las personas.");
         }  
     }
 
@@ -147,7 +149,7 @@ public class PersonasController {
             bloquearBotones();
         limpiar();
         } catch (Exception e) {
-            throw e;
+            Alerta.error("Error", e.getMessage());
         }
     }
 
@@ -162,7 +164,7 @@ public class PersonasController {
         try {
             tablaPersonas.getItems().addAll(servicio.listarPersonas());
         } catch (Exception e) {
-            throw e;
+            Alerta.error("Error", "Hubo un error al listar las personas.");
         }
         tablaPersonas.getSelectionModel().clearSelection();
     }
@@ -175,9 +177,12 @@ public class PersonasController {
             try {
                 servicio.eliminarPersona(persona.getDni());
             } catch (Exception e) {
-                throw e;
+                Alerta.error("Error", "Hubo un error al dar de baja a la persona.");
             }
             limpiar();
+        }
+        else{
+            Alerta.error("Error", "Por favor seleccione una persona para darla de baja.");
         }
     }
 
@@ -203,6 +208,9 @@ public class PersonasController {
             btnBaja.setDisable(true);
             btnModificacion.setText("Cancelar");
             txtDni.setDisable(true);
+        }
+        else{
+            Alerta.error("Error", "Por favor seleccione una persona para modificar sus datos.");
         }
 }
 
