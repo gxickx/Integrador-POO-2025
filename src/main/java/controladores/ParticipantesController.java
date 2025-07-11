@@ -65,7 +65,7 @@ public class ParticipantesController {
     private ComboBox<String> comboVerTipoEvento;
 
     @FXML
-    private Label labelVacantes;
+    private Label lblVacantes;
 
     @FXML
     private TableView<Participacion> tablaPersonas;
@@ -96,7 +96,8 @@ public class ParticipantesController {
 
         comboEvento.getItems().addAll(servicio.listarEventos());
         comboEvento.valueProperty().addListener((obs, oldVal, newVal) -> {
-        actualizarRolesPorEvento(newVal);});
+        actualizarRolesPorEvento(newVal);
+        actualizarLabelVacantes(newVal);});
          
 
         tablaPersonas.getSelectionModel().selectedItemProperty().addListener(e -> cargarDatos());
@@ -105,6 +106,24 @@ public class ParticipantesController {
         } catch (Exception e) {
             throw e;
         }  
+    }
+
+    private void actualizarLabelVacantes(Evento evento) {
+        if (evento == null) {
+            lblVacantes.setVisible(false);
+            return;
+        }
+
+        if (evento.isTieneCupo()) {
+            lblVacantes.setVisible(true);
+            if (evento.getVacantes() > 0) {
+                lblVacantes.setText("* Vacantes disponibles: " + evento.getVacantes());
+            } else {
+                lblVacantes.setText("* No hay vacantes disponibles");
+            }
+        } else {
+            lblVacantes.setVisible(false);
+        }
     }
 
     void cargarDatos(){
