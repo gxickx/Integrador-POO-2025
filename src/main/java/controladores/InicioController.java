@@ -25,6 +25,7 @@ public class InicioController {
 
     @FXML
     private void onClickIrCalendario(ActionEvent event) throws IOException {
+        Main.setRoot("Calendario");
     }
 
     @FXML
