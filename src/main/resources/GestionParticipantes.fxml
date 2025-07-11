@@ -50,7 +50,7 @@
                <font>
                   <Font name="Arial" size="19.0" />
                </font></Label>
-            <Button fx:id="btnAlta" layoutX="589.0" layoutY="580.0" mnemonicParsing="false" onAction="#onClickActivaAltaPersona" prefHeight="26.0" prefWidth="95.0" text="Alta" />
+            <Button fx:id="btnAlta" layoutX="689.0" layoutY="581.0" mnemonicParsing="false" onAction="#onClickActivaAltaPersona" prefHeight="26.0" prefWidth="95.0" text="Alta" />
             <TableView id="tablaPersonas" fx:id="tablaPersonas" layoutX="25.0" layoutY="219.0" prefHeight="358.0" prefWidth="874.0">
               <columns>
                 <TableColumn fx:id="columnaID" prefWidth="82.39999198913574" text="ID" />
@@ -62,8 +62,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Button fx:id="btnBaja" layoutX="694.0" layoutY="580.0" mnemonicParsing="false" onAction="#onClickBajaPersona" prefHeight="26.0" prefWidth="102.0" text="Baja" />
-            <Button fx:id="btnModificacion" layoutX="804.0" layoutY="580.0" mnemonicParsing="false" onAction="#onClickModifcarPersona" prefHeight="26.0" prefWidth="95.0" text="Modificación" />
+            <Button fx:id="btnBaja" layoutX="797.0" layoutY="581.0" mnemonicParsing="false" onAction="#onClickBajaPersona" prefHeight="26.0" prefWidth="102.0" text="Baja" />
             <Button fx:id="btnVolver" layoutX="26.0" layoutY="580.0" mnemonicParsing="false" onAction="#onClickVolverInicio" prefHeight="26.0" prefWidth="71.0" text="← Volver">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -77,8 +76,7 @@
             <Label layoutX="38.0" layoutY="120.0" text="Rol:" />
             <Button fx:id="btnConfirmar" layoutX="745.0" layoutY="110.0" mnemonicParsing="false" onAction="#onClickAltaPersona" prefHeight="26.0" prefWidth="144.0" text="Confirmar" />
             <Separator layoutY="146.0" prefHeight="0.0" prefWidth="926.0" />
-<ComboBox fx:id="comboVerTipoEvento" layoutX="25.0" layoutY="183.0" onAction="#onSeleccionarTipoEvento"
-          prefHeight="26.0" prefWidth="165.0" promptText="Ver tipo de Evento..." />
+<ComboBox fx:id="comboVerTipoEvento" layoutX="25.0" layoutY="183.0" onAction="#onSeleccionarTipoEvento" prefHeight="26.0" prefWidth="165.0" promptText="Ver tipo de Evento..." />
           <Label fx:id="labelVacantes" layoutX="287.0" layoutY="186.0">
               <font>
                   <Font size="14.0" />

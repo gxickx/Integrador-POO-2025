@@ -130,28 +130,6 @@ public class Servicio {
         }
 
     }
-    /* 
-    public void modificarEvento(UUID id, String nombre, Date fechaInicio, int duracion, EstadoEvento estado, int cupoMax, boolean inscripcion){
-        try{
-            this.persistencia.iniciarTransaccion();
-            var evento = this.persistencia.buscar(Evento.class, id);
-            if(evento!=null){
-                evento.setNombre(nombre);
-                evento.setFechaInicio(fechaInicio);
-                evento.setDuracion(duracion);
-                evento.setEstado(estado);
-                evento.setCupoMaximo(cupoMax);
-                evento.setRequiereInscripcion(inscripcion);
-                this.persistencia.modificar(evento);
-                this.persistencia.confirmarTransaccion();
-            } else {
-                this.persistencia.descartarTransaccion();
-            }
-        } catch (Exception e) {
-            this.persistencia.descartarTransaccion();
-            throw e;
-        }
-    }*/
 
     public void modificarEvento(UUID idEvento, EstadoEvento unEstado){
         try{
