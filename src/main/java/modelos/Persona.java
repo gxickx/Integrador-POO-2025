@@ -27,6 +27,7 @@ public class Persona {
     @Column(nullable = false)
     private boolean baja = false;
 
+    // distintas participaciones que puede tener una persona en varios eventos
     @OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Participacion> participaciones = new ArrayList<>();
 

@@ -72,6 +72,11 @@ public abstract class Evento {
         return fechaInicio;
     }
 
+    public int getVacantes() {
+        if (!tieneCupo) return 0;
+        return cupoMaximo - participaciones.size();
+    }
+
     public int getDuracion() {
         return duracion;
     }

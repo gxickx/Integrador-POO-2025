@@ -100,7 +100,11 @@ public class Servicio {
     }
 
     public List<Evento> listarEventos() {
-        return this.persistencia.buscarTodos(Evento.class);
+        try{
+            return this.persistencia.buscarTodos(Evento.class);
+        } catch (Exception e) {
+            throw new RuntimeException("No se pudieron listar los eventos", e);
+        }
     }
 
     public Evento buscarEvento(UUID uuid){
