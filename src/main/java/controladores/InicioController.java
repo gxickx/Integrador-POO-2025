@@ -25,7 +25,6 @@ public class InicioController {
 
     @FXML
     private void onClickIrCalendario(ActionEvent event) throws IOException {
-
     }
 
     @FXML
@@ -35,7 +34,7 @@ public class InicioController {
 
     @FXML
     private void onClickIrParticipacion(ActionEvent event) throws IOException {
-
+        Main.setRoot("GestionParticipantes");
     }
 
     @FXML
