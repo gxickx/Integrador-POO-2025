@@ -82,10 +82,10 @@
             <ComboBox fx:id="comboTipoEvento" layoutX="28.0" layoutY="149.0" prefHeight="26.0" prefWidth="221.0" promptText="Seleccione tipo" />
             <ComboBox fx:id="comboEstadoEvento" layoutX="708.0" layoutY="149.0" prefHeight="26.0" prefWidth="190.0" promptText="Seleccione estado" />
             <Separator layoutX="-3.0" layoutY="109.0" prefHeight="12.0" prefWidth="926.0" />
-            <Label id="labelCombo" fx:id="labelCombo" layoutX="307.0" layoutY="122.0" text="----------" />
+            <Label id="labelCombo" fx:id="labelCombo" layoutX="307.0" layoutY="122.0" text=" " />
             <ComboBox fx:id="comboOpcional" layoutX="307.0" layoutY="149.0" prefHeight="26.0" prefWidth="221.0" />
             <TextField id="textOpcional" fx:id="textOpcional" layoutX="307.0" layoutY="215.0" prefHeight="26.0" prefWidth="222.0" />
-            <Label id="labelCombo" fx:id="labelTextOpcional" layoutX="307.0" layoutY="192.0" text="----------" />
+            <Label id="labelCombo" fx:id="labelTextOpcional" layoutX="307.0" layoutY="192.0" text=" " />
             <Button fx:id="btnVolver" layoutX="25.0" layoutY="465.0" mnemonicParsing="false" onAction="#onClickVolverInicio" prefHeight="26.0" prefWidth="71.0" text="← Volver">
                <font>
                   <Font name="System Bold" size="12.0" />

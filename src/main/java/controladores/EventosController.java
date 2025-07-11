@@ -187,16 +187,20 @@ public class EventosController {
     @FXML
     void onClickActivaAltaEvento(ActionEvent event) {
         limpiar();
-        comboEstadoEvento.setValue(EstadoEvento.PLANIFICACION);
-        if(btnAlta.getText().equals("Cancelar")){
-            bloquearBotones();
-        }else{
-            desbloquearBotones();
-            btnModificacion.setDisable(true);
-            btnAlta.setText("Cancelar");
+
             comboEstadoEvento.getItems().setAll(EstadoEvento.values());
+            comboEstadoEvento.setValue(EstadoEvento.PLANIFICACION);
+
+            if (btnAlta.getText().equals("Cancelar")) {
+                bloquearBotones();
+            } else {
+                desbloquearBotones();
+                btnModificacion.setDisable(true);
+                btnAlta.setText("Cancelar");
+                comboEstadoEvento.setDisable(true);  // bloqueado al iniciar alta
+            }
         }
-    }
+
 
     @FXML
     void onClickCheckTieneCupo(ActionEvent event) {
@@ -232,6 +236,7 @@ public class EventosController {
 
             // ALTA
             if (btnAlta.getText().equals("Cancelar")) {
+                comboEstadoEvento.setValue(EstadoEvento.PLANIFICACION);
                 String nombre = txtNombreEvento.getText();
                 var fechaInicioDate = dateInicio.getValue();
                 var fechaFinDate = dateFin.getValue();
@@ -314,7 +319,6 @@ public class EventosController {
             }
             bloquearBotones();
             limpiar();
-            comboEstadoEvento.setValue(EstadoEvento.PLANIFICACION);
 
         } catch (Exception e) {
             mostrarAlerta("Error", "Ocurrió un error al dar de alta el evento.");
@@ -436,8 +440,11 @@ public class EventosController {
         txtNombreEvento.setText("");
         dateFin.setValue(null);
         dateInicio.setValue(null);
-        comboEstadoEvento.setValue(null);
+        //comboEstadoEvento.setValue(null);
+        //comboEstadoEvento.setValue(EstadoEvento.PLANIFICACION);
+
         comboOpcional.setValue(null);
+        comboTipoEvento.setValue(null);
         textOpcional.setText("");
         txtCupoMax.setText("");
         checkTieneCupo.setSelected(false);
@@ -445,8 +452,10 @@ public class EventosController {
         checkTieneInscripcion.setSelected(false);
         checkAlAireLibre.setSelected(false);
         checkTieneCharlas.setSelected(false);
+        labelCombo.setText("");
 
 
+        comboEstadoEvento.setValue(EstadoEvento.PLANIFICACION);
 
         tablaEventos.getItems().clear();
         try {
