@@ -40,7 +40,7 @@ public class Main extends Application{
 
         // carga la escena principal
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/PantallaInicio.fxml"));
-        scene = new Scene(fxmlLoader.load(), 925, 506);
+        scene = new Scene(fxmlLoader.load(), 925, 610);
         stage.setScene(scene);
         stage.show();
     }

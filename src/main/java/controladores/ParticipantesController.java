@@ -1,10 +1,6 @@
 package controladores;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
-
 
 import org.example.Main;
 
@@ -18,10 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import modelos.Persona;
 import modelos.RolPersona;
-import modelos.Taller;
-import modelos.EstadoEvento;
 import modelos.Evento;
-import modelos.Modalidad;
 import modelos.Participacion;
 import servicio.Servicio;
 
@@ -94,11 +87,6 @@ public class ParticipantesController {
         comboPersona.setDisable(true);
         comboRol.setDisable(true);
         btnConfirmar.setDisable(true);
-
-        LocalDate localDate = LocalDate.now();
-        Date fecha = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        Evento evento = new Taller("aa", fecha, 3, EstadoEvento.CONFIRMADO, true, true, 20, Modalidad.PRESENCIAL);
-        servicio.insertarEvento(evento);
 
         comboEvento.getItems().addAll(servicio.listarEventos());
         comboEvento.valueProperty().addListener((obs, oldVal, newVal) -> {

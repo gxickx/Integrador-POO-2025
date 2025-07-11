@@ -101,6 +101,19 @@ public class Servicio {
         return confirmados;
     }
 
+    public List<Evento> listarEventosCalendario() {
+        var eventos = this.persistencia.buscarTodos(Evento.class);
+        var confirmadoOMas = new ArrayList<Evento>();
+
+        for (var evento : eventos) {
+            if (evento.getEstado() != null && evento.getEstado() != EstadoEvento.PLANIFICACION) {
+                confirmadoOMas.add(evento);
+            }
+        }
+
+        return confirmadoOMas;
+    }
+
     public List<Evento> listarEventos() {
         try{
             var eventos = this.persistencia.buscarTodos(Evento.class);
