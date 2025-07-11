@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.ParticipantesController">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="506.0" prefWidth="925.0" VBox.vgrow="NEVER">
+      <children>
+            <Label layoutX="346.0" layoutY="21.0" text="Gestión de Participantes">
+               <font>
+                  <Font name="Arial" size="19.0" />
+               </font></Label>
+            <Button fx:id="btnAlta" layoutX="588.0" layoutY="465.0" mnemonicParsing="false" onAction="#onClickActivaAltaPersona" prefHeight="26.0" prefWidth="95.0" text="Alta" />
+            <TableView id="tablaPersonas" fx:id="tablaPersonas" layoutX="25.0" layoutY="219.0" prefHeight="240.0" prefWidth="874.0">
+              <columns>
+                <TableColumn fx:id="columnaID" prefWidth="82.39999198913574" text="ID" />
+                  <TableColumn fx:id="columnaEvento" prefWidth="108.79995727539062" text="Evento" />
+                <TableColumn id="columnaNombre" fx:id="columnaPersona" prefWidth="200.79999542236328" text="Persona" />
+                  <TableColumn id="columnaApellido" fx:id="columnaRol" prefWidth="146.4000244140625" text="Rol" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <Button fx:id="btnBaja" layoutX="693.0" layoutY="465.0" mnemonicParsing="false" onAction="#onClickBajaPersona" prefHeight="26.0" prefWidth="102.0" text="Baja" />
+            <Button fx:id="btnModificacion" layoutX="803.0" layoutY="465.0" mnemonicParsing="false" onAction="#onClickModifcarPersona" prefHeight="26.0" prefWidth="95.0" text="Modificación" />
+            <Button fx:id="btnVolver" layoutX="25.0" layoutY="465.0" mnemonicParsing="false" onAction="#onClickVolverInicio" prefHeight="26.0" prefWidth="71.0" text="← Volver">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <ComboBox fx:id="comboPersona" layoutX="116.0" layoutY="66.0" prefHeight="26.0" prefWidth="342.0" />
+            <ComboBox fx:id="comboRol" layoutX="116.0" layoutY="100.0" prefHeight="26.0" prefWidth="310.0" />
+            <ComboBox fx:id="comboEvento" layoutX="538.0" layoutY="67.0" prefHeight="26.0" prefWidth="351.0" />
+            <Label layoutX="38.0" layoutY="71.0" text="Persona:" />
+            <Label layoutX="482.0" layoutY="71.0" text="Evento:" />
+            <Label layoutX="38.0" layoutY="105.0" text="Rol:" />
+            <Button fx:id="btnConfirmar" layoutX="744.0" layoutY="100.0" mnemonicParsing="false" onAction="#onClickAltaPersona" prefHeight="26.0" prefWidth="144.0" text="Confirmar" />
+            <Separator layoutY="146.0" prefHeight="0.0" prefWidth="926.0" />
+            <ComboBox fx:id="comboVerTipoEvento" layoutX="25.0" layoutY="183.0" onAction="#OnSelectionfiltrarPorTipoEvento" prefHeight="26.0" prefWidth="165.0" promptText="Ver tipo de Evento..." />
+            <Label layoutX="212.0" layoutY="186.0" text="Vacantes:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelVacantes" layoutX="287.0" layoutY="186.0" text="----------">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>

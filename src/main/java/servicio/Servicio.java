@@ -5,6 +5,7 @@ import modelos.EstadoEvento;
 import persistencia.Persistencia;
 import modelos.Persona;
 import modelos.Evento;
+import modelos.Participacion;
 import modelos.EstadoEvento;
 
 import java.util.ArrayList;
@@ -118,6 +119,22 @@ public class Servicio {
         }
     }
 
+    /*public void listarParticipantes(){
+        return this.persistencia.bus
+    }*/
+    public void insertarParticipacion(Participacion participacion) {
+    try {
+        this.persistencia.iniciarTransaccion();
+        this.persistencia.insertar(participacion);
+        this.persistencia.confirmarTransaccion();
+    } catch (Exception e) {
+        this.persistencia.descartarTransaccion();
+        throw e;
+    }
+}
 
+    public List<Participacion> listarParticipaciones() {
+        return this.persistencia.buscarTodos(modelos.Participacion.class);
+    }
 
 }
